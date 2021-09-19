@@ -1,0 +1,10 @@
+{
+	"appId": "com.andromeda.spaces",
+	"appName": "spaces",
+	"webDir": "dist",
+	"bundledWebRuntime": false,
+	"server": {
+		"url": "http://localhost:3000/",
+		"cleartext": true
+	}
+}

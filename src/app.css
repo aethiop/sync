@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+body {
+	font-family: "Dosis", sans-serif;
+}
+@layer base {
+	:root {
+		--primary: #8263ea;
+		--secondary: #5eccbb;
+		--background: #e6e5e8;
+		--surface: #ffffff;
+		--error: #d35252;
+		--on-primary: #ffffff;
+		--on-secondary: #000000;
+		--hint: #a2a2a2;
+		--on-background: #020202;
+		--on-error: #ffffff;
+	}
+	.dark {
+		--primary: #8263ea;
+		--secondary: #5eccbb;
+		--background: #020202;
+		--surface: #262626;
+		--error: #d35252;
+		--on-primary: #ffffff;
+		--on-secondary: #000000;
+		--hint: #414141;
+		--on-background: #ffffff;
+		--on-error: #ffffff;
+	}
+}
