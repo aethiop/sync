@@ -10,7 +10,7 @@ import { writable } from "svelte/store";
 
 export const gun = GUN({
 	file: "radata",
-	peers: ["http://localhost:8765/gun"],
+	peers: ["https://gun-manhattan.herokuapp.com/gun"],
 	localStorage: false,
 });
 export const user = gun.user().recall({ sessionStorage: true });
