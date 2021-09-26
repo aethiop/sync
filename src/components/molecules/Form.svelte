@@ -34,6 +34,6 @@
 		/>
 	{/each}
 	<div class={`flex flex-col pt-5 items-${pos}`}>
-		<Button {icon} variant="primary">{submitValue}</Button>
+		<Button {icon} variant="primary" name={submitValue} />
 	</div>
 </form>

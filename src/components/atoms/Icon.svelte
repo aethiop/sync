@@ -7,6 +7,11 @@
 </script>
 
 <svg
+	on:click
+	on:mouseover
+	on:mouseenter
+	on:mouseleave
+	on:focus
 	xmlns="http://www.w3.org/2000/svg"
 	class={$$props.class + "  "}
 	viewBox="0 0 24 24"

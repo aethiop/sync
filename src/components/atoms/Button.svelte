@@ -3,6 +3,7 @@
 	export let variant = "primary";
 	export let icon = "";
 	export let full = false;
+	export let name;
 </script>
 
 <button
@@ -21,10 +22,14 @@
 	class:border-on-primary={variant == "disabled"}
 	class:bg-secondary={variant == "secondary"}
 	class:w-full={full}
-	class="flex w-auto items-center justify-start space-x-2  font-semibold  text-on-background rounded-xl hover:bg-background border-2 border-transparent   px-4 py-2 sm:px-4 sm:py-2 transition duration-100 ease-in-out  disabled:opacity-50 disabled:cursor-not-allowed"
+	class:justify-start={name}
+	class:justify-center={icon && !name}
+	class="flex w-auto items-center  space-x-2  font-semibold  text-on-background rounded-xl hover:bg-background border-2 border-transparent   px-4 py-2 sm:px-4 sm:py-2 transition duration-100 ease-in-out  disabled:opacity-50 disabled:cursor-not-allowed"
 >
 	{#if icon}
 		<Icon class="w-5 h-5 hover:fill-current" name={icon} />
 	{/if}
-	<span><slot /></span>
+	{#if name}
+		<span>{name}</span>
+	{/if}
 </button>

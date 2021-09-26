@@ -49,13 +49,14 @@
 		submitValue="Login"
 		onSubmit={({ key }) => {
 			login(key);
-			history.pushState("/home", "", "/home");
 		}}
 		fields={loginFields}
 	/>
 {/if}
 <div class="mt-10">
-	<Button variant="text" on:click={() => (createSeen = !createSeen)}
-		>{createSeen ? "Already have a galaxy?" : "Create one!"}</Button
-	>
+	<Button
+		variant="text"
+		on:click={() => (createSeen = !createSeen)}
+		name={createSeen ? "Already have a galaxy?" : "Create one!"}
+	/>
 </div>

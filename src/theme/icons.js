@@ -54,4 +54,5 @@ export const icons = {
 	addFile: ["M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"],
 	check: ["M5 13l4 4L19 7"],
 	uploading: ["M5 10l7-7m0 0l7 7m-7-7v18"],
+	loading: ["M17 13l-5 5m0 0l-5-5m5 5V6"],
 };

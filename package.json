@@ -15,6 +15,7 @@
     "vite": "^2.5.2"
   },
   "dependencies": {
+    "@skynetlabs/skynet-nodejs": "^2.2.0",
     "gun": "amark/gun",
     "path": "^0.12.7",
     "svelte-spa-router": "^3.2.0"

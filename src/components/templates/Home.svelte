@@ -8,38 +8,18 @@
 	import Icon from "$atoms/Icon.svelte";
 
 	import { onMount } from "svelte";
-	import { user } from "$lib/db.js";
+	import { gun, user } from "$lib/db.js";
 	import Button from "../atoms/Button.svelte";
-	import Downloadable from "../atoms/Download.svelte";
+	import Download from "../atoms/Download.svelte";
 
 	let modal = false;
 	$: files = [];
-	let blob = [];
-
-	function getChunks(k) {
-		var chunks = [];
-		user.get("files")
-			.get(k)
-			.map()
-			.once((d) => chunks.push(d));
-		return chunks;
-	}
 
 	onMount(async () => {
-		user.get("files")
+		user.get("file")
 			.map()
-			.once(async (_, k) => {
-				var blob = new Blob(getChunks(k), {
-					type: "application/octet-stream",
-				});
-				files = [
-					...files,
-					{
-						name: k,
-						url: URL.createObjectURL(blob),
-						size: blob.size,
-					},
-				];
+			.once(async (d, k) => {
+				files = [...files, k];
 			});
 	});
 </script>
@@ -54,8 +34,8 @@
 		</div>
 		{#if files.length > 0}
 			<div class="flex w-1/2 pt-5 items-center flex-col space-y-4">
-				{#each files as { name, url, size }}
-					<Downloadable {name} {url} {size} />
+				{#each files as filename}
+					<Download name={filename} />
 				{/each}
 			</div>
 		{:else}
@@ -81,10 +61,10 @@
 		<Button
 			icon={modal ? "close" : "addFile"}
 			variant={modal ? "error" : "primary"}
+			name={modal ? "Close" : "Add File"}
 			on:click={() => {
 				modal = !modal;
 			}}
-			>{modal ? "Close" : "Add File"}
-		</Button>
+		/>
 	</div>
 </div>
