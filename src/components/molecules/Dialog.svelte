@@ -15,7 +15,7 @@
 <Modal>
 	<div slot="trigger" let:open>
 		<Icon
-			class="w-5 h-5 outline-none cursor-pointer"
+			class="hover:bg-background cursor-pointer"
 			on:click={open}
 			name="trash"
 		/>

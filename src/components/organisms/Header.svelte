@@ -28,7 +28,10 @@
 		</div>
 		<div class="flex flex-row items-center space-x-4 pr-2">
 			<div class="flex flex-row space-x-5 items-center ">
-				<Icon class="text-on-background w-5 h-5" name="notification" />
+				<Icon
+					class="text-on-background cursor-pointer hover:bg-surface"
+					name="notification"
+				/>
 
 				<ProfileMenu profile={$profile} />
 			</div>

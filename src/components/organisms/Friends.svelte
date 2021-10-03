@@ -9,5 +9,5 @@
 	<FriendModal folder="files" />
 </div>
 <div class="flex-1 h-full rounded-lg">
-	<FileList folder="files" />
+	<FileList folder="files" ttl="30" />
 </div>

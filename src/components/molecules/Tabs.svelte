@@ -19,8 +19,8 @@
 					class:bg-background={activeTabValue === item.value}
 					class="flex w-full cursor-pointer space-x-2 rounded-lg px-2  flex-row items-center"
 				>
-					<Icon class="w-5 h-5 " name={item.icon} />
-					<Text class="px-2 py-2">{item.name}</Text>
+					<Icon class="" name={item.icon} />
+					<Text class="hidden sm:block pr-2">{item.name}</Text>
 				</div>
 			</li>
 		{/each}

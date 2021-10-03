@@ -76,12 +76,47 @@ export function createFile(folder, name, type) {
 	user.get(folder).get(name).get("type").put(type.split("/")[0]);
 }
 
+export async function restoreFile(folder, fileId) {
+	let prevFolder = await user.get(folder).get(fileId).get("from");
+	console.log(prevFolder);
+	var trashed = user.get(folder).get(fileId);
+	// @ts-ignore
+	user.get(prevFolder).get(fileId).put(trashed);
+	trashed.put(null);
+	fetchFiles(folder);
+}
+
+// export async function deleteFile(folder, fileId) {
+// 	var trashed = user.get(folder).get(fileId);
+// 	user.get(folder).get(fileId).put(null);
+// 	trashed.get("from").put(folder);
+// 	var type = trashed.get("type");
+// 	createFile("trash<?30", fileId, await type);
+// 	user.get("trash<?30").get(fileId).put(trashed);
+// 	fetchFiles(folder);
+// }
+
+// export async function completeRemove(folder, fileId) {
+// 	user.get(folder).get(fileId).put(null);
+// 	fetchFiles(folder);
+// }
 export async function deleteFile(folder, fileId) {
+	var ttl = 3600 * 30;
 	var trashed = user.get(folder).get(fileId);
 	var type = await trashed.get("type");
 	user.get(folder).get(fileId).put(null);
-	createFile("trash", fileId, type);
-	user.get("trash").get(fileId).put(trashed);
+	// @ts-ignore
+	user.get("trash<?" + ttl)
+		.get(fileId)
+		.get("type")
+		.put(type.split("/")[0]);
+	user.get("trash<?" + ttl)
+		.get(fileId)
+		.get("from")
+		.put(folder);
+	user.get("trash<?" + ttl)
+		.get(fileId)
+		.put(trashed);
 	fetchFiles(folder);
 }
 

@@ -5,9 +5,7 @@
 </script>
 
 <div class="w-full flex flex-row px-4 items-center justify-between">
-	<SubTitle>Private</SubTitle>
-	<UploadModal folder="private" />
+	<SubTitle>Public</SubTitle>
+	<UploadModal folder="files" />
 </div>
-<div class="flex-1 h-full rounded-lg">
-	<FileList folder="private" />
-</div>
+<FileList folder="files" ttl="30" />

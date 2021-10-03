@@ -26,11 +26,10 @@
 	class:w-full={full}
 	class:justify-start={name}
 	class:justify-center={icon && !name}
-	class={$$props.class +
-		" flex w-auto items-center  space-x-2 font-semibold  rounded-xl hover:bg-background border-2 border-transparent   px-4 py-2 sm:px-4 sm:py-2 transition duration-100 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"}
+	class={" flex w-auto items-center space-x-2 font-semibold  rounded-xl hover:bg-background border-2 border-transparent   px-4 py-2 sm:px-4 sm:py-2 transition duration-100 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"}
 >
 	{#if icon}
-		<Icon class="w-5 h-5 text-on-background" name={icon} />
+		<Icon class="text-on-background" name={icon} />
 	{/if}
 	{#if name}
 		<span> <Text class="truncate ">{name}</Text></span>

@@ -3,10 +3,10 @@
 
 	import Header from "$organisms/Header.svelte";
 
-	import Private from "$templates/Private.svelte";
-	import Public from "$templates/Public.svelte";
-	import Friends from "$templates/Friends.svelte";
-	import Trash from "$templates/Trash.svelte";
+	import Private from "$organisms/Private.svelte";
+	import Public from "$organisms/Public.svelte";
+	import Friends from "$organisms/Friends.svelte";
+	import Trash from "$organisms/Trash.svelte";
 	import Tabs from "$molecules/Tabs.svelte";
 	let items = [
 		{

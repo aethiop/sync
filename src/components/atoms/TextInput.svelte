@@ -17,7 +17,7 @@
 	<span
 		class=" h-full leading-snug font-normal text-center text-hint peer-focus:text-on-background  absolute items-center justify-center  pl-3 py-3.5"
 	>
-		<Icon class="w-5 h-5 " name={icon} />
+		<Icon class="py-0 px-1" name={icon} />
 	</span>
 </div>
 

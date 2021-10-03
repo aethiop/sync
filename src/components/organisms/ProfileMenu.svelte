@@ -1,5 +1,6 @@
 <script>
 	// @ts-nocheck
+	import Clipboard from "svelte-clipboard";
 	import Avatar from "$atoms/Avatar.svelte";
 	import Menu from "$molecules/Menu.svelte";
 	import { logout } from "$lib/auth.js";
@@ -37,6 +38,16 @@
 			icon={$theme.name != "light" ? "sun" : "moon"}
 			name={$theme.name != "light" ? "Light Mode" : "Dark Mode"}
 		/>
+		<Clipboard text={JSON.stringify(profile.key)} let:copy>
+			<Button
+				class="hover:bg-background"
+				full={true}
+				on:click={copy}
+				variant="text"
+				icon="clipboard"
+				name="Copy Key"
+			/>
+		</Clipboard>
 		<Button
 			class="hover:bg-background"
 			full={true}

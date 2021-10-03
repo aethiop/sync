@@ -9,7 +9,7 @@
 	export let folder;
 	onMount(async () => {
 		files.set([]);
-		await fetchFiles(folder);
+		fetchFiles(folder);
 	});
 </script>
 
@@ -18,7 +18,7 @@
 		class="flex overflow-hidden w-full p-2 items-center flex-col space-y-4"
 	>
 		{#each $files as { name, folder }}
-			{#if folder == "trash"}
+			{#if folder.slice(0, 5) == "trash"}
 				<TrashFile {name} {folder} />
 			{:else}
 				<DownloadFile {name} {folder} />

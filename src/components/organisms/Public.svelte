@@ -8,4 +8,6 @@
 	<SubTitle>Public</SubTitle>
 	<UploadModal folder="files" />
 </div>
-<FileList folder="files" />
+<div class="flex-1 h-full rounded-lg">
+	<FileList folder="files" ttl="30" />
+</div>

@@ -40,7 +40,7 @@
 </script>
 
 <File {name} type={dataType}>
-	<Icon class="w-5 h-5 outline-none" name="share" />
+	<Icon class="hover:bg-background cursor-pointer" name="share" />
 	<Dialog
 		title="Are you sure you want to trash this file?"
 		cancel="Cancel"
@@ -78,14 +78,14 @@
 			</svg>
 		{:else}
 			<Icon
-				class="w-5 h-5 cursor-pointer focus:outline-none  "
+				class="hover:bg-background cursor-pointer "
 				name="download"
 				on:click={() => download()}
 			/>
 		{/if}
 	{:else}
 		<Icon
-			class="w-5 h-5 text-primary cursor-pointer focus:outline-none  "
+			class="hover:bg-background cursor-pointer"
 			name="download"
 			on:click={() => download()}
 		/>

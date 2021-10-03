@@ -2,10 +2,11 @@
 	// @ts-nocheck
 
 	import { onMount } from "svelte";
+	import Icon from "$atoms/Icon.svelte";
 	import Button from "$atoms/Button.svelte";
 	import File from "$atoms/File.svelte";
 	import Dialog from "$molecules/Dialog.svelte";
-	import { completeRemove } from "$lib/cloud.js";
+	import { restoreFile, completeRemove } from "$lib/cloud.js";
 
 	import { user } from "$lib/db.js";
 	export let name;
@@ -17,6 +18,14 @@
 </script>
 
 <File {name} type={dataType}>
+	<Icon
+		class="hover:bg-background cursor-pointer"
+		name="refresh"
+		on:click={() => {
+			console.log(folder);
+			restoreFile(folder, name);
+		}}
+	/>
 	<Dialog
 		title="Completely remove file?"
 		cancel="Cancel"

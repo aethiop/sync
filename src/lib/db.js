@@ -7,7 +7,7 @@ import { writable } from "svelte/store";
 export const gun = GUN({
 	peers: [
 		"https://gun-matrix.herokuapp.com/gun",
-		"https://marda.herokuapp.com/gun",
+		// "http://localhost:8765/gun",
 	],
 	localStorage: false,
 });
