@@ -1,11 +1,13 @@
 <script>
 	import Icon from "$atoms/Icon.svelte";
+	import Text from "$atoms/Text.svelte";
 	export let variant = "primary";
 	export let icon = "";
 	export let full = false;
 	export let name;
 </script>
 
+<!-- Button Atom -->
 <button
 	on:click
 	on:mouseover
@@ -24,12 +26,13 @@
 	class:w-full={full}
 	class:justify-start={name}
 	class:justify-center={icon && !name}
-	class="flex w-auto items-center  space-x-2  font-semibold  text-on-background rounded-xl hover:bg-background border-2 border-transparent   px-4 py-2 sm:px-4 sm:py-2 transition duration-100 ease-in-out  disabled:opacity-50 disabled:cursor-not-allowed"
+	class={$$props.class +
+		" flex w-auto items-center  space-x-2 font-semibold  rounded-xl hover:bg-background border-2 border-transparent   px-4 py-2 sm:px-4 sm:py-2 transition duration-100 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"}
 >
 	{#if icon}
-		<Icon class="w-5 h-5 hover:fill-current" name={icon} />
+		<Icon class="w-5 h-5 text-on-background" name={icon} />
 	{/if}
 	{#if name}
-		<span>{name}</span>
+		<span> <Text class="truncate ">{name}</Text></span>
 	{/if}
 </button>

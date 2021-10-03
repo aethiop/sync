@@ -1,0 +1,23 @@
+<script>
+	import Button from "$atoms/Button.svelte";
+	import Modal from "$molecules/Modal.svelte";
+	import Upload from "$molecules/Upload.svelte";
+	export let folder;
+</script>
+
+<Modal>
+	<div slot="trigger" let:open>
+		<div class={$$props.class}>
+			<Button
+				icon="addFile"
+				on:click={open}
+				variant="text"
+				name="New File"
+			/>
+		</div>
+	</div>
+
+	<div slot="content">
+		<Upload {folder} />
+	</div>
+</Modal>

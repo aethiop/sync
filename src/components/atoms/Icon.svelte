@@ -6,6 +6,7 @@
 	export let fill = false;
 </script>
 
+<!-- Icon Atom -->
 <svg
 	on:click
 	on:mouseover
@@ -13,7 +14,7 @@
 	on:mouseleave
 	on:focus
 	xmlns="http://www.w3.org/2000/svg"
-	class={$$props.class + "  "}
+	class={$$props.class + "  outline-none "}
 	viewBox="0 0 24 24"
 	fill={fill ? "currentColor" : "none"}
 	stroke="currentColor"

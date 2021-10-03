@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from "svelte";
-	import Avatar from "$atoms/Avatar.svelte";
 	import { scale } from "svelte/transition";
 
 	let show = false; // menu state
@@ -37,7 +36,7 @@
 	});
 </script>
 
-<div class="relative" bind:this={menu}>
+<div class="relative mt-1.5" bind:this={menu}>
 	<div>
 		<button
 			on:click={() => (show = !show)}
@@ -49,7 +48,7 @@
 			<div
 				in:scale={{ duration: 100, start: 0.95 }}
 				out:scale={{ duration: 15, start: 0.95 }}
-				class="z-50 origin-top-right mt-2 absolute right-0 w-48  bg-surface
+				class="z-50 origin-top-right mt-5 absolute right-0 w-48  bg-surface
           rounded-xl shadow-lg"
 			>
 				<slot />

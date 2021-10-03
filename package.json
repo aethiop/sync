@@ -16,8 +16,13 @@
   },
   "dependencies": {
     "@skynetlabs/skynet-nodejs": "^2.2.0",
+    "buffer": "^6.0.3",
+    "file-saver": "^2.0.5",
     "gun": "amark/gun",
     "path": "^0.12.7",
-    "svelte-spa-router": "^3.2.0"
+    "simple-peer": "^9.11.0",
+    "svelte-spa-router": "^3.2.0",
+    "webtorrent": "^1.5.5",
+    "webtorrent-hybrid": "^5.0.1"
   }
 }

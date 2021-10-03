@@ -1,29 +1,8 @@
-const generateColorClass = (variable) => {
+const withOpacity = (variable) => {
 	return ({ opacityValue }) =>
 		opacityValue
-			? `rgba(var(--${variable}), ${opacityValue})`
-			: `rgb(var(--${variable}))`;
-};
-
-const textColor = {
-	primary: generateColorClass("on-primary"),
-	secondary: generateColorClass("on-secondary"),
-	background: generateColorClass("on-background"),
-	error: generateColorClass("on-error"),
-};
-
-const backgroundColor = {
-	primary: {
-		DEFAULT: generateColorClass("primary"),
-		var: generateColorClass("primary-var"),
-	},
-	secondary: {
-		DEFAULT: generateColorClass("secondary"),
-		var: generateColorClass("secondary-var"),
-	},
-	background: generateColorClass("background"),
-	surface: generateColorClass("surface"),
-	error: generateColorClass("error"),
+			? `rgba(var(${variable}), ${opacityValue})`
+			: `rgb(var(${variable}))`;
 };
 
 module.exports = {
@@ -32,24 +11,29 @@ module.exports = {
 	darkMode: "class",
 	theme: {
 		extend: {
+			animation: {
+				blurry: "blur(4px) opacity(0) 0.2s opacity(1)",
+			},
 			colors: {
 				primary: {
-					DEFAULT: "var(--primary)",
-					var: "var(--primary-var)",
+					DEFAULT: withOpacity("--primary"),
+					var: withOpacity("--primary-var"),
 				},
 				secondary: {
-					DEFAULT: "var(--secondary)",
-					var: "var(--secondary-var)",
+					DEFAULT: withOpacity("--secondary"),
+					var: withOpacity("--secondary-var"),
 				},
-				background: "var(--background)",
-				surface: "var(--surface)",
-				error: "var(--error)",
-				hint: "var(--hint)",
+				background: withOpacity("--background"),
+				surface: withOpacity("--surface"),
+				error: withOpacity("--error"),
+				success: withOpacity("--success"),
+				hint: withOpacity("--hint"),
 				on: {
-					primary: "var(--on-primary)",
-					secondary: "var(--on-secondary)",
-					background: "var(--on-background)",
-					error: "var(--on-error)",
+					primary: withOpacity("--on-primary"),
+					secondary: withOpacity("--on-secondary"),
+					background: withOpacity("--on-background"),
+					error: withOpacity("--on-error"),
+					success: withOpacity("--on-success"),
 				},
 			},
 		},

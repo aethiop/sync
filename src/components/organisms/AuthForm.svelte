@@ -11,7 +11,7 @@
 			id: "username",
 			type: "text",
 			value: "",
-			placeholder: "Type your alias...",
+			placeholder: "Type your username...",
 			inputType: "text",
 			inputIcon: "at",
 		},
@@ -35,10 +35,9 @@
 	<Form
 		pos="center"
 		icon="fire"
-		submitValue="Create"
+		submitValue="Register"
 		onSubmit={({ username }) => {
 			create(username);
-			history.pushState("/home", "", "/home");
 		}}
 		fields={createFields}
 	/>
