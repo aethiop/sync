@@ -9,8 +9,10 @@
 	import { isAuthenticated, profile } from "$lib/store";
 	let value;
 	import url from "$lib/url";
-	function routTo(name) {
-		const href = name;
+	function handleLinkClick(e) {
+		e.preventDefault();
+		const href = "e.target.name";
+		console.log(href);
 		history.pushState(href, "", href);
 	}
 </script>
@@ -36,10 +38,6 @@
 				<Icon
 					class="text-on-background cursor-pointer hover:bg-surface"
 					name="notification"
-					on:click={(e) => {
-						e.preventDefault();
-						routTo("notification");
-					}}
 				/>
 
 				<ProfileMenu profile={$profile} />
