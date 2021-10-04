@@ -11,7 +11,7 @@
 	import { getFile } from "$lib/cloud.js";
 	import { user } from "$lib/db.js";
 	import { uriToFile } from "$lib/helper.js";
-
+	import { addToast } from "$lib/store";
 	export let name;
 	export let folder;
 
@@ -22,10 +22,33 @@
 	onMount(async () => {
 		dataType = await user.get(folder).get(name).get("type");
 	});
-
+	const downloadingToast = () => {
+		addToast({
+			message: `Downloading...`,
+			type: "info",
+			dismissible: true,
+			timeout: 1500,
+		});
+	};
+	const deleteCompleted = () => {
+		addToast({
+			message: `File has been deleted! Its been moved to trash folder.`,
+			type: "error",
+			dismissible: true,
+			timeout: 3000,
+		});
+	};
+	const downloadSuccess = () => {
+		addToast({
+			message: `File Downloaded!`,
+			type: "success",
+			dismissible: true,
+			timeout: 3000,
+		});
+	};
 	async function download() {
 		downloading = true;
-
+		downloadingToast();
 		data = await getFile(folder, name);
 		// var blob = await b64ToBlob(
 		// 	data,
@@ -35,6 +58,7 @@
 		uriToFile(data).then((blob) => {
 			FileSaver.saveAs(blob, name);
 		});
+		downloadSuccess();
 		downloading = false;
 	}
 </script>
@@ -51,6 +75,7 @@
 			name="Delete"
 			on:click={() => {
 				deleteFile(folder, name);
+				deleteCompleted();
 			}}
 		/></Dialog
 	>

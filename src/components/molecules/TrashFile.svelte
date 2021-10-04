@@ -9,12 +9,29 @@
 	import { restoreFile, completeRemove } from "$lib/cloud.js";
 
 	import { user } from "$lib/db.js";
+	import { addToast } from "$lib/store";
 	export let name;
 	export let folder;
 	let dataType;
 	onMount(async () => {
 		dataType = await user.get(folder).get(name).get("type");
 	});
+	const removeCompleted = () => {
+		addToast({
+			message: `File has been removed`,
+			type: "error",
+			dismissible: true,
+			timeout: 3000,
+		});
+	};
+	const restoreCompleted = () => {
+		addToast({
+			message: `File has been restored`,
+			type: "info",
+			dismissible: true,
+			timeout: 3000,
+		});
+	};
 </script>
 
 <File {name} type={dataType}>
@@ -24,6 +41,7 @@
 		on:click={() => {
 			console.log(folder);
 			restoreFile(folder, name);
+			restoreCompleted();
 		}}
 	/>
 	<Dialog
@@ -36,6 +54,7 @@
 			name="Delete"
 			on:click={() => {
 				completeRemove(folder, name);
+				removeCompleted();
 			}}
 		/></Dialog
 	>

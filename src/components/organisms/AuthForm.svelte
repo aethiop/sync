@@ -27,8 +27,6 @@
 			inputType: "text",
 		},
 	];
-
-	let result = {};
 </script>
 
 {#if createSeen}

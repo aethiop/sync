@@ -8,6 +8,7 @@
 	import Button from "$atoms/Button.svelte";
 	import Progress from "$atoms/Progress.svelte";
 	import { uploadFile, fetchFiles, progress } from "$lib/cloud.js";
+	import { addToast } from "$lib/store";
 
 	export let folder;
 
@@ -20,6 +21,12 @@
 	function upload() {
 		uploadFile(folder, file);
 		fetchFiles(folder);
+		addToast({
+			message: `File has been uploaded`,
+			type: "success",
+			dismissible: true,
+			timeout: 3000,
+		});
 	}
 </script>
 

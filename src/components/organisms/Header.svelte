@@ -8,6 +8,11 @@
 	import ProfileMenu from "$organisms/ProfileMenu.svelte";
 	import { isAuthenticated, profile } from "$lib/store";
 	let value;
+	import url from "$lib/url";
+	function routTo(name) {
+		const href = name;
+		history.pushState(href, "", href);
+	}
 </script>
 
 {#if !$isAuthenticated}
@@ -31,6 +36,10 @@
 				<Icon
 					class="text-on-background cursor-pointer hover:bg-surface"
 					name="notification"
+					on:click={(e) => {
+						e.preventDefault();
+						routTo("notification");
+					}}
 				/>
 
 				<ProfileMenu profile={$profile} />

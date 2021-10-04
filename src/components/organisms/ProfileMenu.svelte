@@ -8,6 +8,16 @@
 	const { theme, toggle } = getContext("theme");
 	import Button from "$atoms/Button.svelte";
 	import Text from "$atoms/Text.svelte";
+	import { addToast } from "$lib/store.js";
+
+	const copiedMessage = () => {
+		addToast({
+			message: `Key has been copied succesfully!`,
+			type: "success",
+			dismissible: true,
+			timeout: 3000,
+		});
+	};
 	export let profile;
 	$: console.log($theme);
 </script>
@@ -42,7 +52,10 @@
 			<Button
 				class="hover:bg-background"
 				full={true}
-				on:click={copy}
+				on:click={() => {
+					copy();
+					copiedMessage();
+				}}
 				variant="text"
 				icon="clipboard"
 				name="Copy Key"
