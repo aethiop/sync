@@ -7,7 +7,7 @@ const withOpacity = (variable) => {
 
 module.exports = {
 	purge: ["./src/**/*.svelte"],
-
+	mode: "jit",
 	darkMode: "class",
 	theme: {
 		extend: {

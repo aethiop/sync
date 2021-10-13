@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="flex flex-row px-2 bg-surface text-on-background rounded-lg items-center"
+	class="flex flex-row px-2 py-2 bg-surface text-on-background rounded-lg items-center"
 	transition:fade
 >
 	{#if type === "success"}
@@ -26,7 +26,7 @@
 
 	{#if dismissible}
 		<Icon
-			class="cursor-pointer texxt-on-primary"
+			class="cursor-pointer text-error"
 			name="close"
 			on:click={() => dispatch("dismiss")}
 		/>

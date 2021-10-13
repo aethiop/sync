@@ -11,8 +11,8 @@
 			<Button
 				icon="addFile"
 				on:click={open}
-				variant="text"
-				name="New File"
+				variant="primary"
+				name="Add File"
 			/>
 		</div>
 	</div>

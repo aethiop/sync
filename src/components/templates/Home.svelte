@@ -1,26 +1,30 @@
 <script>
 	// @ts-nocheck
 
-	import Header from "$organisms/Header.svelte";
-
-	import Private from "$organisms/Private.svelte";
+	import TextInput from "$atoms/TextInput.svelte";
 	import Public from "$organisms/Public.svelte";
-	import Friends from "$organisms/Friends.svelte";
-	import Trash from "$organisms/Trash.svelte";
-	import Tabs from "$molecules/Tabs.svelte";
+	import Friends from "$templates/pages/Friends.svelte";
+	import Trash from "$templates/pages/Trash.svelte";
+	import Tabs from "$organisms/Tabs.svelte";
+	import Notifications from "$templates/pages/Notifications.svelte";
+	import Cloud from "$templates/pages/Cloud.svelte";
+
+	import HomeHeader from "$organisms/HomeHeader.svelte";
+
 	let items = [
 		{
-			name: "Private",
-			icon: "secret",
+			name: "Cloud",
+			icon: "cloud",
 			value: 1,
-			component: Private,
+			component: Cloud,
 		},
 		{
-			name: "Public",
-			icon: "world",
+			name: "Notifications",
+			icon: "notification",
 			value: 2,
-			component: Public,
+			component: Notifications,
 		},
+
 		{
 			name: "Friends",
 			icon: "friends",
@@ -36,7 +40,6 @@
 	];
 </script>
 
-<div class="w-full sm:w-full h-screen flex flex-col">
-	<Header />
+<div class="w-full sm:w-full h-screen flex flex-row">
 	<Tabs {items} />
 </div>

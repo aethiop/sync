@@ -18,7 +18,7 @@
 </script>
 
 <form
-	class="w-full sm:w-1/2 space-y-5"
+	class="w-full sm:w-1/2 space-y-2"
 	on:submit|preventDefault={() =>
 		handleSubmit(
 			// @ts-ignore
@@ -33,7 +33,7 @@
 			icon={field.inputIcon}
 		/>
 	{/each}
-	<div class={`flex flex-col pt-5 items-${pos}`}>
+	<div class={`flex flex-col pt-4 items-${pos}`}>
 		<Button {icon} variant="primary" name={submitValue} />
 	</div>
 </form>

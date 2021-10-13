@@ -2,8 +2,6 @@
 
 <svg
 	class={$$props.class}
-	width="111"
-	height="74"
 	viewBox="0 0 111 74"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"

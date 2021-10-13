@@ -1,4 +1,6 @@
 <script>
+	import Icon from "$atoms/Icon.svelte";
+	import ProfileCard from "$molecules/ProfileCard.svelte";
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
 
@@ -36,23 +38,18 @@
 	});
 </script>
 
-<div class="relative mt-1.5" bind:this={menu}>
-	<div>
-		<button
-			on:click={() => (show = !show)}
-			class=" z-0 menu focus:outline-none rounded-lg "
-			><slot name="button" /></button
-		>
+<div class="relative mt-1.5 w-full" bind:this={menu}>
+	<button on:click={() => (show = !show)} class=" z-0 w-full ">
+		<slot name="button" />
+	</button>
 
-		{#if show}
-			<div
-				in:scale={{ duration: 100, start: 0.95 }}
-				out:scale={{ duration: 15, start: 0.95 }}
-				class="z-50 origin-top-right mt-5 absolute right-0 w-48  bg-surface
-          rounded-xl shadow-lg"
-			>
-				<slot />
-			</div>
-		{/if}
-	</div>
+	{#if show}
+		<div
+			in:scale={{ duration: 100, start: 0.95 }}
+			out:scale={{ duration: 15, start: 0.95 }}
+			class="z-50 lg:origin-top-left lg:mt-5 absolute bottom-0  lg:bottom-auto right-0 lg:right-auto lg:top-0 lg:left-0 bg-surface rounded-xl shadow-lg"
+		>
+			<slot />
+		</div>
+	{/if}
 </div>

@@ -7,7 +7,7 @@
 </script>
 
 <!-- Icon Atom -->
-<div class={$$props.class + " rounded-full p-2"}>
+<div class={$$props.class}>
 	<svg
 		on:click
 		on:mouseover

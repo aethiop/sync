@@ -1,3 +1,3 @@
-<p class={$$props.class + " font-semibold text-on-background tracking-widest"}>
+<p class={$$props.class + " font-semibold  tracking-widest"}>
 	<slot />
 </p>

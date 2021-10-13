@@ -12,12 +12,12 @@
 		{placeholder}
 		{name}
 		type="text"
-		class="peer px-2 py-3 font-bold placeholder-hint text-on-background relative bg-surface rounded-2xl text-md border-0 shadow-md outline-none focus:ring focus:ring-primary w-full pl-10"
+		class=" px-2 py-2 font-semibold placeholder-hint text-on-background relative bg-surface rounded-xl text-md border-0 shadow-md outline-none focus:ring focus:ring-primary w-full pl-10"
 	/>
 	<span
-		class=" h-full leading-snug font-normal text-center text-hint peer-focus:text-on-background  absolute items-center justify-center  pl-3 py-3.5"
+		class="  leading-snug text-center text-hint  absolute items-center justify-center  pl-3 py-2"
 	>
-		<Icon class="py-0 px-1" name={icon} />
+		<Icon class="py-0.5 px-1" name={icon} />
 	</span>
 </div>
 

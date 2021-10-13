@@ -30,6 +30,6 @@ export const login = async (key) => {
 export const logout = () => {
 	user.leave();
 	localStorage.clear();
-	profile.set({});
 	isAuthenticated.set(false);
+	profile.set({});
 };

@@ -1,12 +1,13 @@
 export const themes = [
 	{
 		name: "light",
+
 		colors: {
 			primary: "130, 20, 234",
 			secondary: "94, 204, 187",
 			background: "230, 229, 232",
 			surface: "255, 255, 255",
-			error: "211, 82, 82",
+			error: "234, 77, 77",
 			"on-primary": "255, 255, 255",
 			"on-secondary": "0, 0, 0",
 			hint: "162, 162, 162",

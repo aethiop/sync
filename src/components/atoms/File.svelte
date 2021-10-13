@@ -8,7 +8,7 @@
 
 <!-- File Atom -->
 <div
-	class="flex flex-row w-full items-center space-x-4 mx-2 px-4 bg-surface border-2  border-transparent hover:border-primary rounded-xl"
+	class="flex flex-row w-full items-center space-x-4 mx-2 px-4 py-2 bg-surface focus-visible:bg-opacity-10  border-transparent  hover:bg-opacity-75 rounded-xl"
 >
 	<div>
 		{#key type}

@@ -60,7 +60,7 @@
 		/>
 
 		<div
-			class="z-10 bg-surface w-2/3 md:w-1/2 px-2 py-2 rounded-2xl text-on-background font-bold"
+			class="z-10 bg-surface w-2/3 md:w-1/2 px-2 py-2 rounded-lg text-on-background font-bold"
 		>
 			<slot name="header" {store} />
 			<slot name="content" {store} />

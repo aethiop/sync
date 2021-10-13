@@ -1,6 +1,7 @@
 <script>
 	// @ts-nocheck
 	import { tweened } from "svelte/motion";
+	import { onMount } from "svelte";
 	import Icon from "$atoms/Icon.svelte";
 	import SubTitle from "$atoms/SubTitle.svelte";
 	import File from "$atoms/File.svelte";
@@ -11,14 +12,26 @@
 	import { addToast } from "$lib/store";
 
 	export let folder;
-
 	$: file = null;
 	let files = {};
 	$: {
 		if (files[0]) file = files[0];
 	}
+	onMount(() => {
+		$progress = 0;
+		files = {};
+	});
+	let options = [
+		{ name: "gun", func: uploadtoGun },
+		{ name: "torrent", fun: uploadtoTorrent },
+	];
+	let selected = options[0];
 
-	function upload() {
+	function uploadtoTorrent() {
+		console.log("Torrent");
+	}
+
+	function uploadtoGun() {
 		uploadFile(folder, file);
 		fetchFiles(folder);
 		addToast({
@@ -48,7 +61,7 @@
 	</div>
 {:else}
 	<div
-		class="border-2 border-transparent hover:shadow-lg  hover:border-on-background bg-surface w-full border-dashed  rounded-lg relative "
+		class="border-2 border-transparent hover:border-on-background bg-surface w-full border-dashed  rounded-lg relative "
 	>
 		<input
 			bind:files
@@ -56,14 +69,17 @@
 			class="cursor-pointer relative block opacity-0 w-full h-full px-10 py-20 z-10"
 		/>
 		<div
-			class="absolute left-0 right-0 top-14 space-y-4 flex flex-col justify-center items-center"
+			class="absolute left-0 right-0 top-16 sm:top-14 space-y-4 flex flex-col justify-center items-center"
 		>
 			<Icon
-				class="w-10 h-10 text-on-background hover:text-on-primary"
+				class="hidden sm:block w-10 h-10 text-on-background hover:text-on-primary"
 				name="inbox"
 				fill={false}
 			/>
-			<Text>Drop files anywhere to upload. 👍</Text>
+			<Text class="hidden sm:block"
+				>Drop files anywhere to upload. 👍</Text
+			>
+			<Text class="sm:hidden">Tap to input a file. 👆</Text>
 		</div>
 	</div>
 {/if}
@@ -81,7 +97,7 @@
 			name="Reset"
 		/>
 		<Button
-			on:click={upload}
+			on:click={selected.func}
 			icon="upload"
 			variant="primary"
 			name="Upload"

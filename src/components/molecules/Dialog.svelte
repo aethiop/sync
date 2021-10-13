@@ -14,11 +14,7 @@
 
 <Modal>
 	<div slot="trigger" let:open>
-		<Icon
-			class="hover:bg-background cursor-pointer"
-			on:click={open}
-			name="trash"
-		/>
+		<Icon class="cursor-pointer" on:click={open} name="trash" />
 	</div>
 	<div slot="header" class="px-4 ">
 		<Title>{title}</Title>

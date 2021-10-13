@@ -23,7 +23,7 @@
     "simple-peer": "^9.11.0",
     "svelte-clipboard": "^1.0.0",
     "svelte-spa-router": "^3.2.0",
-    "webtorrent": "^1.5.5",
+    "webtorrent": "^1.5.6",
     "webtorrent-hybrid": "^5.0.1"
   }
 }

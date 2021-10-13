@@ -11,7 +11,7 @@
 			id: "username",
 			type: "text",
 			value: "",
-			placeholder: "Type your username...",
+			placeholder: "Username",
 			inputType: "text",
 			inputIcon: "at",
 		},
@@ -29,31 +29,33 @@
 	];
 </script>
 
-{#if createSeen}
-	<Form
-		pos="center"
-		icon="fire"
-		submitValue="Register"
-		onSubmit={({ username }) => {
-			create(username);
-		}}
-		fields={createFields}
-	/>
-{:else}
-	<Form
-		pos="center"
-		icon="login"
-		submitValue="Login"
-		onSubmit={({ key }) => {
-			login(key);
-		}}
-		fields={loginFields}
-	/>
-{/if}
-<div class="mt-10">
-	<Button
-		variant="text"
-		on:click={() => (createSeen = !createSeen)}
-		name={createSeen ? "Already have a galaxy?" : "Create one!"}
-	/>
+<div class="w-full flex flex-col items-center">
+	{#if createSeen}
+		<Form
+			pos="center"
+			icon="fire"
+			submitValue="Register"
+			onSubmit={({ username }) => {
+				create(username);
+			}}
+			fields={createFields}
+		/>
+	{:else}
+		<Form
+			pos="center"
+			icon="login"
+			submitValue="Login"
+			onSubmit={({ key }) => {
+				login(key);
+			}}
+			fields={loginFields}
+		/>
+	{/if}
+	<div class="pt-2">
+		<Button
+			variant="text"
+			on:click={() => (createSeen = !createSeen)}
+			name={createSeen ? "Already have a galaxy?" : "Create one!"}
+		/>
+	</div>
 </div>

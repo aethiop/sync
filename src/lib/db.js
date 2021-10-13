@@ -1,13 +1,13 @@
 import GUN from "gun";
-import "gun/sea";
+import SEA from "gun/sea";
 import "gun/axe";
 import "gun/lib/then";
 import "gun/lib/promise";
 import { writable } from "svelte/store";
 export const gun = GUN({
 	peers: [
-		"https://gun-matrix.herokuapp.com/gun",
-		// "http://localhost:8765/gun",
+		// "https://gun-matrix.herokuapp.com/gun",
+		"http://localhost:8765/gun",
 	],
 	localStorage: false,
 });

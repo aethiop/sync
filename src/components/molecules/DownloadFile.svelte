@@ -64,7 +64,7 @@
 </script>
 
 <File {name} type={dataType}>
-	<Icon class="hover:bg-background cursor-pointer" name="share" />
+	<Icon class="cursor-pointer" name="share" />
 	<Dialog
 		title="Are you sure you want to trash this file?"
 		cancel="Cancel"
@@ -73,6 +73,7 @@
 		<Button
 			variant="error"
 			name="Delete"
+			icon="trash"
 			on:click={() => {
 				deleteFile(folder, name);
 				deleteCompleted();
@@ -103,14 +104,14 @@
 			</svg>
 		{:else}
 			<Icon
-				class="hover:bg-background cursor-pointer "
+				class="cursor-pointer "
 				name="download"
 				on:click={() => download()}
 			/>
 		{/if}
 	{:else}
 		<Icon
-			class="hover:bg-background cursor-pointer"
+			class="cursor-pointer"
 			name="download"
 			on:click={() => download()}
 		/>
