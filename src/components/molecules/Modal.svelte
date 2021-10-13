@@ -55,7 +55,7 @@
 		tabindex="0"
 	>
 		<div
-			class="absolute w-full h-full transition-all  delay-75 backdrop-filter backdrop-blur-sm "
+			class="absolute h-full transition-all  delay-75 backdrop-filter backdrop-blur-sm "
 			on:click={close}
 		/>
 
