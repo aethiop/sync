@@ -15,5 +15,7 @@
 			bind:value
 		/>
 	</div>
+</div>
+<div class="flex-1 h-full px-2 lg:px-10 py-4 rounded-lg">
 	<FileList folder={`trash<?${ttl}`} />
 </div>

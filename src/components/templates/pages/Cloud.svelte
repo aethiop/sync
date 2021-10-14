@@ -16,6 +16,6 @@
 	</div>
 	<UploadModal folder="private" />
 </div>
-<div class="flex-1 h-full px-10 py-4 rounded-lg">
+<div class="flex-1 h-full px-2 lg:px-10 py-4 rounded-lg">
 	<FileList folder="private" />
 </div>
