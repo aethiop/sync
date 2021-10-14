@@ -5,8 +5,8 @@
 	let value;
 </script>
 
-<div class="w-full flex py-4 px-4 flex-row space-x-4 items-center justify-end">
-	<div class="w-full lg:w-1/2">
+<div class="w-full flex py-4 px-4 flex-row items-center justify-end">
+	<div class="w-full px-2 lg:w-1/2">
 		<TextInput
 			placeholder="Search..."
 			name="Search"
