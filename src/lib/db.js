@@ -5,7 +5,7 @@ import "gun/lib/then";
 import "gun/lib/promise";
 import { writable } from "svelte/store";
 export const gun = GUN({
-	peers: ["http://localhost:8765/gun"],
+	peers: ["https://marda.herokuapp.com/gun"],
 	localStorage: false,
 });
 export const user = gun.user().recall({ sessionStorage: true });

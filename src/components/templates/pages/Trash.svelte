@@ -6,7 +6,7 @@
 	let ttl = 3600 * 30;
 </script>
 
-<div class="w-full flex py-4 px-4 flex-col items-center justify-end">
+<div class="w-full flex py-4 px-4 flex-row items-center justify-end">
 	<div class="w-full px-2 lg:w-1/2">
 		<TextInput
 			placeholder="Search..."

@@ -46,6 +46,7 @@
 		}}
 	/>
 	<Dialog
+		let:close
 		title="Completely remove file?"
 		cancel="Cancel"
 		message={`${name} will be completely removed`}
@@ -56,6 +57,8 @@
 			on:click={() => {
 				completeRemove(folder, name);
 				removeCompleted();
+				fetchFiles(folder);
+				close();
 			}}
 		/></Dialog
 	>
