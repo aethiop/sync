@@ -7,8 +7,9 @@
 	import { onMount } from "svelte";
 	import { fetchFiles } from "$lib/cloud.js";
 	export let folder;
-
-	fetchFiles(folder);
+	onMount(() => {
+		fetchFiles(folder);
+	});
 </script>
 
 {#if $files.length > 0}

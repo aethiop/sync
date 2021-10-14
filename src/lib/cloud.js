@@ -104,9 +104,23 @@ export async function getFile(folder, fileId) {
 		) {
 			return chunks;
 		}
+		next.get("data").once((chunk) => {
+			chunks += chunk;
+		});
 		chunks += await next.get("data");
 		return chunkAndConcatnate(next, chunks);
 	}
+	// function loop(i) {
+	// 	i = i || 0;
+	// 	next = next.get("next");
+	// 	next.get("data").once((chunk) => {
+	// 		// console.log(chunk);
+	// 		if (chunk) chunks[i] = chunk;
+	// 	});
+	// 	loop(i + 1);
+	// }
+	// loop();
+	// console.log(chunks.length);
 	// while ((await next.get("next").get("data")) !== null) {
 	// 	downloading = true;
 	// 	next = next.get("next");
@@ -129,7 +143,7 @@ export async function getFile(folder, fileId) {
 	// 		name: "SHA-256",
 	// 	})
 	// );
-	var chunks = await chunkAndConcatnate(next, "");
+	var chunks = await chunkAndConcatnate(next);
 	return chunks;
 }
 
@@ -166,10 +180,10 @@ export async function deleteFile(folder, fileId) {
 	var type = await trashed.get("type");
 	user.get(folder).get(fileId).put(null);
 	// @ts-ignore
-	// user.get("trash<?" + ttl)
-	// 	.get(fileId)
-	// 	.get("type")
-	// 	.put(type.split("/")[0]);
+	user.get("trash<?" + ttl)
+		.get(fileId)
+		.get("type")
+		.put(type.split("/")[0]);
 	user.get("trash<?" + ttl)
 		.get(fileId)
 		.get("from")

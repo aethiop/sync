@@ -7,7 +7,7 @@
 	import File from "$atoms/File.svelte";
 	import Dialog from "$molecules/Dialog.svelte";
 	import FileSaver from "file-saver";
-	import { deleteFile } from "$lib/cloud.js";
+	import { deleteFile, fetchFiles } from "$lib/cloud.js";
 	import { getFile } from "$lib/cloud.js";
 	import { user } from "$lib/db.js";
 	import { uriToFile } from "$lib/helper.js";
@@ -77,6 +77,7 @@
 			on:click={() => {
 				deleteFile(folder, name);
 				deleteCompleted();
+				fetchFiles(folder);
 			}}
 		/></Dialog
 	>

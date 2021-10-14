@@ -48,6 +48,9 @@
 	@tailwind base;
 	@tailwind components;
 	@tailwind utilities;
+	* {
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	}
 	:root {
 		font-family: "Nunito", sans-serif;
 	}

@@ -19,7 +19,7 @@
 	<div slot="header" class="px-4 ">
 		<Title>{title}</Title>
 	</div>
-	<div slot="content" class="px-4 py-7">
+	<div slot="content" class="px-4 overflow-x-auto py-7">
 		<Text>
 			{message}
 		</Text>
