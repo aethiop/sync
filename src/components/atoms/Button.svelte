@@ -30,7 +30,7 @@
 	class:w-full={full}
 	class:justify-start={name}
 	class:justify-center={icon && !name}
-	class={" flex w-auto items-center space-x-2 px-4  font-semibold rounded-xl border-transparent  py-1.5   transition duration-100 ease-in-out disabled:bg-opacity-50 disabled:cursor-not-allowed"}
+	class={" flex w-auto items-center space-x-2 px-4  font-semibold rounded-xl border-transparent  py-2   transition duration-100 ease-in-out disabled:bg-opacity-50 disabled:cursor-not-allowed"}
 >
 	{#if icon}
 		<Icon name={icon} />

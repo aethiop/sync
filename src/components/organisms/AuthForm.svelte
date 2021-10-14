@@ -23,7 +23,7 @@
 			type: "text",
 			value: "",
 			inputIcon: "fingerprint",
-			placeholder: "Enter/Paste your key/fingerprint",
+			placeholder: "Paste your key...",
 			inputType: "text",
 		},
 	];
