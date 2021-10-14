@@ -2,13 +2,32 @@
 import { writable } from "svelte/store";
 import { tweened } from "svelte/motion";
 import { user } from "./db.js";
+import { uriToFile } from "./helper.js";
 import { files } from "./store.js";
+import FileSaver from "file-saver";
+import { addToast, dismissToast } from "$lib/store";
 
 export let downloading = false;
 export let data = null;
 export let progress = tweened(0);
 let reader = {};
+const downloadingToast = (fileId) => {
+	addToast({
+		id: fileId,
+		message: `Downloading ${fileId}, Please Wait...`,
+		type: "info",
+		dismissible: false,
+	});
+};
 
+const downloadSuccess = (fileId) => {
+	addToast({
+		message: `${fileId} Downloaded Successfully!`,
+		type: "success",
+		dismissible: true,
+		timeout: 3000,
+	});
+};
 export function uploadFile(folder, file) {
 	var slice_size = 1024 * 1024;
 	let length;
@@ -77,7 +96,7 @@ export function fetchFiles(folder) {
 }
 
 export async function getFile(folder, fileId) {
-	let test = [];
+	let chunks = [];
 	var next = user.get(folder).get(fileId);
 	let proof = await next.get("proof");
 	let size = await next.get("size");
@@ -92,34 +111,52 @@ export async function getFile(folder, fileId) {
 	// 		return chunks;
 	// 	}
 	// }
-	async function chunkAndConcatnate(next, chunks) {
-		next = next.get("next") || next;
-		var chunks = chunks || "";
-		console.log(((chunks.length / size) * 100).toFixed(2), "%");
+	// async function chunkAndConcatnate(next, chunks) {
+	// 	next = next.get("next") || next;
+	// 	var chunks = chunks || "";
+	//
+	// 	if (
+	// 		proof ===
+	// 		(await SEA.work(chunks, null, null, {
+	// 			name: "SHA-256",
+	// 		}))
+	// 	) {
+	// 		return chunks;
+	// 	}
+	// 	next.get("data").once((chunk) => {
+	// 		chunks += chunk;
+	// 	});
+
+	// 	return chunkAndConcatnate(next, chunks);
+	// }
+	downloadingToast(fileId);
+	(async function loop(i) {
+		i = i || 0;
+		next = next.get("next");
 		if (
 			proof ===
-			(await SEA.work(chunks, null, null, {
+			(await SEA.work(chunks.join(""), null, null, {
 				name: "SHA-256",
 			}))
 		) {
-			return chunks;
+			dismissToast(fileId);
+			uriToFile(chunks.join("")).then((blob) => {
+				FileSaver.saveAs(blob, fileId);
+			});
+			downloadSuccess(fileId);
+			return;
 		}
 		next.get("data").once((chunk) => {
-			chunks += chunk;
+			chunks[i] = chunk;
+			console.log(
+				((chunks.join("").length / size) * 100).toFixed(2),
+				"%"
+			);
 		});
-		chunks += await next.get("data");
-		return chunkAndConcatnate(next, chunks);
-	}
-	// function loop(i) {
-	// 	i = i || 0;
-	// 	next = next.get("next");
-	// 	next.get("data").once((chunk) => {
-	// 		// console.log(chunk);
-	// 		if (chunk) chunks[i] = chunk;
-	// 	});
-	// 	loop(i + 1);
-	// }
-	// loop();
+		loop(i + 1);
+	})();
+
+	// console.log(chunks.length);
 	// console.log(chunks.length);
 	// while ((await next.get("next").get("data")) !== null) {
 	// 	downloading = true;
@@ -143,8 +180,8 @@ export async function getFile(folder, fileId) {
 	// 		name: "SHA-256",
 	// 	})
 	// );
-	var chunks = await chunkAndConcatnate(next);
-	return chunks;
+	// var chunks = await chunkAndConcatnate(next);
+	// return chunks;
 }
 
 export function createFile(folder, name, type) {
@@ -177,20 +214,15 @@ export async function restoreFile(folder, fileId) {
 export async function deleteFile(folder, fileId) {
 	var ttl = 3600 * 30;
 	var trashed = user.get(folder).get(fileId);
-	var type = await trashed.get("type");
 	user.get(folder).get(fileId).put(null);
 	// @ts-ignore
 	user.get("trash<?" + ttl)
 		.get(fileId)
-		.get("type")
-		.put(type.split("/")[0]);
+		.put(trashed);
 	user.get("trash<?" + ttl)
 		.get(fileId)
 		.get("from")
 		.put(folder);
-	user.get("trash<?" + ttl)
-		.get(fileId)
-		.put(trashed);
 }
 
 export async function completeRemove(folder, fileId) {

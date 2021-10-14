@@ -36,7 +36,7 @@
 
 <File {name} type={dataType}>
 	<Icon
-		class="hover:bg-background cursor-pointer"
+		class="mx-2 cursor-pointer"
 		name="refresh"
 		on:click={() => {
 			console.log(folder);

@@ -6,30 +6,17 @@
 	import Button from "$atoms/Button.svelte";
 	import File from "$atoms/File.svelte";
 	import Dialog from "$molecules/Dialog.svelte";
-	import FileSaver from "file-saver";
 	import { deleteFile, fetchFiles } from "$lib/cloud.js";
 	import { getFile } from "$lib/cloud.js";
+	import { addToast } from "$lib/store.js";
 	import { user } from "$lib/db.js";
 	import { uriToFile } from "$lib/helper.js";
-	import { addToast } from "$lib/store";
 	export let name;
 	export let folder;
 
 	let downloading = false;
 	let data = null;
 	let dataType;
-
-	onMount(async () => {
-		dataType = await user.get(folder).get(name).get("type");
-	});
-	const downloadingToast = () => {
-		addToast({
-			message: `Downloading...`,
-			type: "info",
-			dismissible: true,
-			timeout: 1500,
-		});
-	};
 	const deleteCompleted = () => {
 		addToast({
 			message: `File has been deleted! Its been moved to trash folder.`,
@@ -38,33 +25,17 @@
 			timeout: 3000,
 		});
 	};
-	const downloadSuccess = () => {
-		addToast({
-			message: `File Downloaded!`,
-			type: "success",
-			dismissible: true,
-			timeout: 3000,
-		});
-	};
+	onMount(async () => {
+		dataType = await user.get(folder).get(name).get("type");
+	});
+
 	async function download() {
-		downloading = true;
-		downloadingToast();
-		data = await getFile(folder, name);
-		// var blob = await b64ToBlob(
-		// 	data,
-		// 	data.split(";base64,")[0].split(":")[1],
-		// 	1024 * 1024
-		// );
-		uriToFile(data).then((blob) => {
-			FileSaver.saveAs(blob, name);
-		});
-		downloadSuccess();
-		downloading = false;
+		getFile(folder, name);
 	}
 </script>
 
 <File {name} type={dataType}>
-	<Icon class="cursor-pointer" name="share" />
+	<Icon class="cursor-pointer mx-2" name="share" />
 	<Dialog
 		title="Are you sure you want to trash this file?"
 		cancel="Cancel"
@@ -105,14 +76,14 @@
 			</svg>
 		{:else}
 			<Icon
-				class="cursor-pointer "
+				class="cursor-pointer mx-2"
 				name="download"
 				on:click={() => download()}
 			/>
 		{/if}
 	{:else}
 		<Icon
-			class="cursor-pointer"
+			class="cursor-pointer mx-2"
 			name="download"
 			on:click={() => download()}
 		/>

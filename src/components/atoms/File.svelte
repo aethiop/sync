@@ -18,7 +18,7 @@
 	<div class="w-full text-on-background truncate">
 		{name}
 	</div>
-	<div class="py-2 pr-2 flex flex-row items-center space-x-4">
+	<div class="py-2 pr-2 flex flex-row items-center">
 		<slot />
 	</div>
 </div>

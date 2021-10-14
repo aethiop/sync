@@ -27,7 +27,7 @@
 	<div
 		slot="footer"
 		let:store={{ close }}
-		class="flex flex-row justify-end px-2 py-2 space-x-2"
+		class="flex flex-row justify-end px-2 py-2 "
 	>
 		<Button variant="text" name={cancel} on:click={close} />
 		<slot />

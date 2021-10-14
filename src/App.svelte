@@ -27,7 +27,7 @@
 
 		{#if $toasts}
 			<div
-				class="absolute flex flex-col space-y-2 lg:pb-4 bottom-0 pb-14"
+				class="absolute flex flex-col space-y-2 md:pb-4 bottom-0 pb-20"
 			>
 				{#each $toasts as toast (toast.id)}
 					<Toast

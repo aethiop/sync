@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="flex flex-row px-2 py-2 bg-surface text-on-background rounded-lg items-center"
+	class="flex flex-row px-2 py-2 bg-surface justify-between text-on-background rounded-lg items-center"
 	transition:fade
 >
 	{#if type === "success"}
@@ -23,12 +23,13 @@
 	<div class="px-2">
 		<slot />
 	</div>
-
-	{#if dismissible}
-		<Icon
-			class="cursor-pointer text-error"
-			name="close"
-			on:click={() => dispatch("dismiss")}
-		/>
-	{/if}
+	<div>
+		{#if dismissible}
+			<Icon
+				class="cursor-pointer text-error"
+				name="close"
+				on:click={() => dispatch("dismiss")}
+			/>
+		{/if}
+	</div>
 </div>
