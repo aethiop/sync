@@ -14,6 +14,7 @@
 	// set up Theme store, holding current theme object
 	const Theme = writable(getCurrentTheme(_current));
 
+	// console.log($Theme.colors);
 	setContext("theme", {
 		// providing Theme store through context makes store readonly
 		theme: Theme,
@@ -29,6 +30,9 @@
 			// update Theme store
 			Theme.update((t) => ({ ...t, ...getCurrentTheme(_current) }));
 			setRootColors(getCurrentTheme(_current));
+		},
+		update: () => {
+			setRootColors($Theme);
 		},
 	});
 

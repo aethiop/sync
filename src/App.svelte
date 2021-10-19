@@ -27,7 +27,7 @@
 
 		{#if $toasts}
 			<div
-				class="absolute flex flex-col space-y-2 md:pb-4 bottom-0 pb-24 "
+				class="absolute flex flex-col space-y-2 mx-2 md:pb-4 bottom-0 pb-24 "
 			>
 				{#each $toasts as toast (toast.id)}
 					<Toast
@@ -51,6 +51,7 @@
 	* {
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	}
+
 	:root {
 		font-family: "Nunito", sans-serif;
 	}

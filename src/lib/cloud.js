@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { writable } from "svelte/store";
 import { tweened } from "svelte/motion";
-import { user } from "./db.js";
+import { gun, user } from "./db.js";
 import { uriToFile } from "./helper.js";
 import { files } from "./store.js";
 import FileSaver from "file-saver";
@@ -28,27 +28,28 @@ const downloadSuccess = (fileId) => {
 		timeout: 3000,
 	});
 };
-export function uploadFile(folder, file) {
+export async function uploadFile(folder, file) {
 	var slice_size = 1024 * 1024;
 	let length;
 	let prev = user.get(folder);
 
-	async function splitAndUpload(b64, test) {
+	async function splitAndUpload(b64, proof) {
 		var b64String = b64.slice(0, slice_size);
-		test = test || [];
+
 		if (b64.length) {
 			progress.set((1 - b64.length / length) * 100);
-			prev.put({ data: b64String });
-			prev = prev.get("next");
-			test.push(
-				await SEA.work(b64String, null, null, {
+			prev.put({
+				data: b64String,
+				checksum: await SEA.work(b64String, null, null, {
 					name: "SHA-256",
-				})
-			);
-			splitAndUpload(b64.slice(slice_size), test);
+				}),
+			});
+			prev = prev.get("next");
+
+			splitAndUpload(b64.slice(slice_size), proof);
 		} else {
-			console.log(test);
 			progress.set(100);
+			user.get(folder).get(file.name).get("proof").put(proof);
 		}
 	}
 	function upload() {
@@ -62,25 +63,19 @@ export function uploadFile(folder, file) {
 					slice_size = file.size;
 				}
 				let b64 = e.target.result;
+				let proof = await SEA.work(b64, null, null, {
+					name: "SHA-256",
+				});
 				length = b64.length;
 				user.get(folder).get(file.name).get("size").put(length);
-				user.get(folder)
-					.get(file.name)
-					.get("proof")
-					.put(
-						await SEA.work(b64, null, null, {
-							name: "SHA-256",
-						})
-					);
-				splitAndUpload(b64);
+				splitAndUpload(b64, proof);
 			};
 			reader.readAsDataURL(file);
 		}
 	}
 
-	return upload();
+	upload();
 }
-
 export function fetchFiles(folder) {
 	var data = [];
 	files.set([]);
@@ -97,9 +92,7 @@ export function fetchFiles(folder) {
 
 export async function getFile(folder, fileId) {
 	let chunks = [];
-	var next = user.get(folder).get(fileId);
-	let proof = await next.get("proof");
-	let size = await next.get("size");
+	// var next = user.get(folder).get(fileId);
 
 	// async function chunkAndConcatnate(file, chunks) {
 	// 	chunks = chunks || "";
@@ -130,32 +123,53 @@ export async function getFile(folder, fileId) {
 	// 	return chunkAndConcatnate(next, chunks);
 	// }
 	downloadingToast(fileId);
-	(async function loop(i) {
-		i = i || 0;
-		next = next.get("next");
-		if (
-			proof ===
-			(await SEA.work(chunks.join(""), null, null, {
-				name: "SHA-256",
-			}))
-		) {
-			dismissToast(fileId);
-			uriToFile(chunks.join("")).then((blob) => {
-				FileSaver.saveAs(blob, fileId);
-			});
-			downloadSuccess(fileId);
-			return;
-		}
-		next.get("data").once((chunk) => {
-			chunks[i] = chunk;
-			console.log(
-				((chunks.join("").length / size) * 100).toFixed(2),
-				"%"
-			);
-		});
-		loop(i + 1);
-	})();
 
+	user.get(folder)
+		.get(fileId)
+		.get("proof")
+		.on(async (hash) => {
+			let next = user.get(folder).get(fileId);
+			let size = await next.get("size");
+			if (hash) {
+				// while ((await next.get("next").get("data")) !== null) {
+				// 	downloading = true;
+				// 	next = next.get("next");
+				// 	next.get("data").once((chunk) => {
+				// 		chunks += chunk;
+				// 	});
+				// 	console.log(((chunks.length / size) * 100).toFixed(2), "%");
+				// }
+
+				(async function loop(i) {
+					i = i || 0;
+					next = next.get("next");
+					if (
+						hash ===
+						(await SEA.work(chunks.join(""), null, null, {
+							name: "SHA-256",
+						}))
+					) {
+						dismissToast(fileId);
+						uriToFile(chunks.join("")).then((blob) => {
+							FileSaver.saveAs(blob, fileId);
+						});
+						downloadSuccess(fileId);
+						return;
+					} else {
+						next.get("data").once((chunk) => {
+							chunks[i] = chunk;
+							console.log(
+								((chunks.join("").length / size) * 100).toFixed(
+									2
+								),
+								"%"
+							);
+						});
+						loop(i + 1);
+					}
+				})();
+			}
+		});
 	// console.log(chunks.length);
 	// console.log(chunks.length);
 	// while ((await next.get("next").get("data")) !== null) {

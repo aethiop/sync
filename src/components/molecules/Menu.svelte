@@ -47,7 +47,7 @@
 		<div
 			in:scale={{ duration: 100, start: 0.95 }}
 			out:scale={{ duration: 15, start: 0.95 }}
-			class="z-50 lg:origin-top-left lg:mt-5 absolute bottom-0  lg:bottom-auto right-0 lg:right-auto lg:top-0 lg:left-0 bg-surface rounded-xl shadow-lg"
+			class="z-50 lg:origin-top-left  absolute bottom-0  lg:bottom-auto right-0 lg:right-auto lg:left-auto bg-surface rounded-xl shadow-lg"
 		>
 			<slot />
 		</div>

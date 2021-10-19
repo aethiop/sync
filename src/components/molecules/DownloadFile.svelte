@@ -35,7 +35,7 @@
 </script>
 
 <File {name} type={dataType}>
-	<Icon class="cursor-pointer mx-2" name="share" />
+	<Button icon="share" variant="text" name="" />
 	<Dialog
 		title="Are you sure you want to trash this file?"
 		cancel="Cancel"
@@ -75,17 +75,22 @@
 				/>
 			</svg>
 		{:else}
-			<Icon
-				class="cursor-pointer mx-2"
-				name="download"
+			<Button
+				icon="download"
+				variant="text"
+				name=""
 				on:click={() => download()}
 			/>
 		{/if}
 	{:else}
-		<Icon
+		<Button
 			class="cursor-pointer mx-2"
-			name="download"
-			on:click={() => download()}
+			variant="text"
+			name=""
+			on:click={() => {
+				download();
+				console.log("clicked");
+			}}
 		/>
 	{/if}
 </File>

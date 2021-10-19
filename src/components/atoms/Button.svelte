@@ -5,6 +5,7 @@
 	export let icon = "";
 	export let full = false;
 	export let name;
+	let button;
 </script>
 
 <!-- Button Atom -->
@@ -14,28 +15,52 @@
 	on:mouseenter
 	on:mouseleave
 	on:focus
+	bind:this={button}
 	type="submit"
-	class:bg-transparent={variant == "text"}
-	class:text-on-background={variant == "text"}
-	class:bg-primary={variant == "primary"}
-	class:text-on-primary={variant == "primary"}
-	class:hover:text-primary={variant == "text"}
-	class:text-error={variant == "text-error"}
-	class:hover:text-secondary={variant == "text-error"}
-	class:hover:bg-opacity-75={variant == "primary" || "error"}
-	class:hover:border-secondary={variant == "secondary"}
-	class:bg-error={variant == "error"}
+	class:btn-primary={variant == "primary"}
+	class:btn-text={variant == "text"}
+	class:btn-text-error={variant == "text-error"}
+	class:btn-secondary={variant == "secondary"}
+	class:btn-error={variant == "error"}
 	class:border-on-primary={variant == "disabled"}
-	class:bg-secondary={variant == "secondary"}
 	class:w-full={full}
 	class:justify-start={name}
 	class:justify-center={icon && !name}
-	class={" flex w-auto items-center space-x-2 px-4  font-semibold rounded-xl border-transparent  py-2   transition duration-100 ease-in-out disabled:bg-opacity-50 disabled:cursor-not-allowed"}
+	class={"btn"}
 >
 	{#if icon}
 		<Icon name={icon} />
 	{/if}
 	{#if name}
-		<span> <Text class="truncate ">{name}</Text></span>
+		<span> <Text class="truncate">{name}</Text></span>
 	{/if}
 </button>
+
+<style>
+	/* hover:bg-opacity-75 */
+	.btn {
+		@apply flex  items-center   font-semibold rounded-xl border-transparent py-2 transition duration-100 ease-in-out;
+	}
+	.btn-primary {
+		@apply bg-primary space-x-2 px-4 text-on-primary;
+	}
+
+	/* hover:bg-opacity-75 */
+	.btn-secondary {
+		@apply bg-secondary space-x-2 px-4 text-on-primary;
+	}
+
+	/* hover:bg-opacity-75 */
+	.btn-error {
+		@apply bg-error;
+	}
+	/* hover:text-primary */
+	.btn-text {
+		@apply px-2 text-on-background;
+	}
+
+	/* hover:text-secondary */
+	.btn-text-error {
+		@apply text-error;
+	}
+</style>

@@ -63,11 +63,7 @@
 	<div
 		class="border-2 border-transparent hover:border-on-background bg-surface w-full border-dashed  rounded-lg relative "
 	>
-		<input
-			bind:files
-			type="file"
-			class="cursor-pointer relative block opacity-0 w-full h-full px-10 py-20 z-10"
-		/>
+		<input bind:files type="file" class="input-btn" />
 		<div
 			class="absolute left-0 right-0 top-16 sm:top-14 space-y-4 flex flex-col justify-center items-center"
 		>
@@ -104,3 +100,9 @@
 		/>
 	</div>
 {/if}
+
+<style>
+	.input-btn {
+		@apply cursor-pointer relative block opacity-0 w-full h-full px-10 py-20 z-10;
+	}
+</style>
