@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+:root {
+    font-family: "Nunito", sans-serif;
+    --primary: 130, 20, 234;
+	--secondary: 94, 204, 187;
+	--background: 230, 229, 232;
+	--surface: 255, 255, 255;
+	--error: 234, 77, 77;
+	--on-primary: 255, 255, 255;
+	--on-secondary: 0, 0, 0;
+	--hint: 162, 162, 162;
+	--on-background: 0,0,0;
+	--success: 100, 214, 118;
+	--on-success: 255, 255, 255;
+	--on-error: 255, 255, 255;
+}
+
+@layer components {
+.title {
+		@apply text-3xl font-black;
+}
+.h1 {
+		@apply text-2xl font-black;
+}
+.h2 {
+		@apply text-xl;
+}
+.h3 {
+		@apply text-lg font-black;
+}
+.body {
+		@apply tracking-wider;
+}
+.body-bold {
+		@apply tracking-wider font-black;
+}
+
+/* Avatar */
+.avatar {
+    @apply w-12 h-12 pt-1 flex  items-center bg-opacity-50 justify-center bg-primary rounded-2xl text-primary text-xl font-bold;
+}
+.avatar-text {
+    @apply text-primary
+}
+.avatar-status {
+    @apply relative bottom-2 ml-9 w-3 h-3 ring-4 ring-surface rounded-full bg-success;
+}
+
+/* Button */
+
+.btn {
+	@apply flex w-auto items-center space-x-2 px-4  font-semibold rounded-xl border-transparent py-2 transition duration-100 ease-in-out disabled:bg-opacity-50 disabled:cursor-not-allowed ;
+}
+
+.btn-primary {
+    @apply bg-primary shadow-lg text-on-primary hover:bg-opacity-75;
+}
+.btn-gradient {
+    @apply bg-gradient-to-r shadow-lg from-primary  to-indigo-500 text-on-primary hover:bg-opacity-75;
+}
+.btn-primary {
+    @apply bg-primary text-on-primary shadow-lg hover:bg-opacity-75;
+}
+.btn-secondary {
+    @apply ring-secondary ring-2 text-on-secondary text-secondary hover:ring-primary hover:text-primary;
+}
+.btn-error {
+    @apply bg-error text-on-primary shadow-lg hover:bg-opacity-75;
+}
+.btn-text {
+    @apply bg-transparent text-on-background hover:text-primary;
+}
+.btn-text-error {
+    @apply bg-transparent text-error hover:text-secondary;
+}
+
+/* Progress */
+.progress {
+    @apply h-full bg-primary relative w-0 rounded-full;
+}
+.progress-outline {
+    @apply w-full h-full bg-background absolute;
+}
+.progress-container {
+    @apply h-3 relative w-full rounded-xl overflow-hidden;
+}
+.progress-text {
+    @apply font-semibold min-w-max;
+}
+.progress-wrap {
+    @apply flex flex-row items-center space-x-4 px-2;
+}}

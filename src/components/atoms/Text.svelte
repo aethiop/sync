@@ -1,3 +1,10 @@
-<p class={$$props.class + " font-semibold text-sm lg:text-md tracking-widest"}>
+<script>
+	export let type;
+</script>
+
+<p
+	
+	class={type + " font-semibold tracking-widest"}>
 	<slot />
 </p>
+

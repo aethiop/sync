@@ -1,3 +1,4 @@
+
 <script>
 	// @ts-nocheck
 	import { tweened } from "svelte/motion";
@@ -46,14 +47,14 @@
 {#if file}
 	<div class="pb-4">
 		<div class="px-5 py-2">
-			<SubTitle
+			<Text type="h2"
 				>{$progress != 100
 					? "Finish Uploading"
-					: "Successfully Uploaded"}</SubTitle
+					: "Successfully Uploaded"}</Text
 			>
 		</div>
 		<div class="py-2 px-4">
-			<Progress {progress} />
+			<Progress progress={$progress} />
 		</div>
 		<div>
 			<File name={file.name} type={file.type.split("/")[0]} />
@@ -76,10 +77,10 @@
 				name="inbox"
 				fill={false}
 			/>
-			<Text class="hidden sm:block"
+			<Text class="hidden sm:block" type="body"
 				>Drop files anywhere to upload. 👍</Text
 			>
-			<Text class="sm:hidden">Tap to input a file. 👆</Text>
+			<Text class="sm:hidden" type="body">Tap to input a file. 👆</Text>
 		</div>
 	</div>
 {/if}

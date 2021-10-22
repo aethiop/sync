@@ -33,23 +33,42 @@ export function uploadFile(folder, file) {
 	let length;
 	let prev = user.get(folder);
 
-	async function splitAndUpload(b64, test) {
-		var b64String = b64.slice(0, slice_size);
-		test = test || [];
-		if (b64.length) {
-			progress.set((1 - b64.length / length) * 100);
-			prev.put({ data: b64String });
-			prev = prev.get("next");
-			test.push(
-				await SEA.work(b64String, null, null, {
-					name: "SHA-256",
-				})
-			);
-			splitAndUpload(b64.slice(slice_size), test);
-		} else {
-			console.log(test);
-			progress.set(100);
+	// async function splitAndUpload(b64, test) {
+	// 	var b64String = b64.slice(0, slice_size);
+	// 	test = test || [];
+	// 	if (b64.length) {
+	// 		progress.set((1 - b64.length / length) * 100);
+	// 		prev.put({ data: b64String });
+	// 		prev = prev.get("next");
+	// 		test.push(
+	// 			await SEA.work(b64String, null, null, {
+	// 				name: "SHA-256",
+	// 			})
+	// 		);
+	// 		splitAndUpload(b64.slice(slice_size), test);
+	// 	} else {
+	// 		console.log(test);
+	// 		progress.set(100);
+	// 	}
+	// }
+	function splitBase64(base64) {
+		var raw = atob(base64);
+		var chunks = [];
+		var chunkSize = 1000000;
+		var chunkCount = Math.ceil(raw.length / chunkSize);
+		for (var i = 0; i < chunkCount; i++) {
+			var chunk = raw.substr(i * chunkSize, chunkSize);
+			var byteNumbers = new Array(chunk.length);
+			for (var j = 0; j < chunk.length; j++) {
+				byteNumbers[j] = chunk.charCodeAt(j);
+			}
+			var byteArray = new Uint8Array(byteNumbers);
+			var blob = new Blob([byteArray], {
+				type: "application/javascript",
+			});
+			chunks.push(blob);
 		}
+		return chunks;
 	}
 	function upload() {
 		if (file) {
@@ -72,7 +91,7 @@ export function uploadFile(folder, file) {
 							name: "SHA-256",
 						})
 					);
-				splitAndUpload(b64);
+				splitBase64(b64);
 			};
 			reader.readAsDataURL(file);
 		}

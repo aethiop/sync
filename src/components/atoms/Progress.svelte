@@ -3,14 +3,14 @@
 </script>
 
 <!-- Progress Atom -->
-<div class="flex flex-row items-center space-x-4 px-2">
-	<div class="h-3 relative w-full rounded-full overflow-hidden">
-		<div class="w-full h-full bg-background absolute" />
+<div class="progress-wrap">
+	<div class="progress-container">
+		<div class="progress-outline" />
 		<div
-			style={"width: " + $progress + "%"}
+			style={"width: " + progress + "%"}
 			id="bar"
-			class="h-full bg-success relative w-0 rounded-2xl"
+			class="progress"
 		/>
 	</div>
-	<span class="min-w-max">{$progress.toFixed(0)} %</span>
+	<p class="progress-text">{ progress.toFixed(0)} %</p>
 </div>

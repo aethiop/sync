@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { icons } from "$theme/icons.js";
+	import { icons } from "../../theme/icons.js";
 	export let name;
 	export let fill = false;
 </script>
