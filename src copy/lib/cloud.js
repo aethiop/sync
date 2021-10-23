@@ -37,19 +37,10 @@ export function uploadFile(folder, file) {
 		if (b64.length) {
 			progress.set((1 - b64.length / length) * 100);
 			await prev.put({ data: b64String });
-			console.log("YES")
 			prev = prev.get("next");
 			splitAndUpload(b64.slice(slice_size), test);
 		} else {
-			user.get(folder).get(file.name).get("size").put(length);
-			user.get(folder)
-				.get(file.name)
-				.get("proof")
-				.put(
-					await SEA.work(b64, null, null, {
-						name: "SHA-256",
-					})
-				);
+			console.log(test);
 			progress.set(100);
 		}
 	}
@@ -65,14 +56,22 @@ export function uploadFile(folder, file) {
 				}
 				let b64 = e.target.result;
 				length = b64.length;
-				
+				user.get(folder).get(file.name).get("size").put(length);
+				user.get(folder)
+					.get(file.name)
+					.get("proof")
+					.put(
+						await SEA.work(b64, null, null, {
+							name: "SHA-256",
+						})
+					);
 				splitAndUpload(b64);
 			};
 			reader.readAsDataURL(file);
 		}
 	}
 
-	upload();
+	return upload();
 }
 
 export function fetchFiles(folder) {
