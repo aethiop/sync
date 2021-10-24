@@ -6,9 +6,9 @@
 	import AuthForm from "$organisms/AuthForm.svelte";
 </script>
 
-<div class="w-full items-center flex flex-row h-screen">
+<div class="w-full bg-gradient-to-br from-background to-surface items-center flex flex-row h-screen">
 	<div
-		class="hidden flex-1 lg:flex flex-col justify-center items-center  bg-surface h-full"
+		class="hidden flex-1 lg:flex flex-col justify-center items-center  h-full"
 	>
 		<Logo class="w-44 h-44" />
 		<Title

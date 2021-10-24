@@ -46,14 +46,14 @@
 {#if file}
 	<div class="pb-4">
 		<div class="px-5 py-2">
-			<SubTitle
+			<Text type="h3"
 				>{$progress != 100
 					? "Finish Uploading"
-					: "Successfully Uploaded"}</SubTitle
+					: "Successfully Uploaded"}</Text
 			>
 		</div>
 		<div class="py-2 px-4">
-			<Progress {progress} />
+			<Progress progress={$progress} />
 		</div>
 		<div>
 			<File name={file.name} type={file.type.split("/")[0]} />
@@ -61,25 +61,21 @@
 	</div>
 {:else}
 	<div
-		class="border-2 border-transparent hover:border-on-background bg-surface w-full border-dashed  rounded-lg relative "
+		class="border-2 border-transparent hover:border-on-background hover:bg-background/40 sm:w-full border-dashed  rounded-lg relative "
 	>
-		<input
-			bind:files
-			type="file"
-			class="cursor-pointer relative block opacity-0 w-full h-full px-10 py-20 z-10"
-		/>
-		<div
-			class="absolute left-0 right-0 top-16 sm:top-14 space-y-4 flex flex-col justify-center items-center"
-		>
+		<input bind:files type="file" class="upload-input" />
+		<div class="upload-info">
 			<Icon
-				class="hidden sm:block w-10 h-10 text-on-background hover:text-on-primary"
+				sizeString="w-7 h-7"
+				class=" text-primary/75 "
 				name="inbox"
 				fill={false}
 			/>
-			<Text class="hidden sm:block"
-				>Drop files anywhere to upload. 👍</Text
-			>
-			<Text class="sm:hidden">Tap to input a file. 👆</Text>
+			<div class="hidden sm:block">
+				<Text class="" type="body"
+					>Drop files anywhere to upload. 👍</Text
+				>
+			</div>
 		</div>
 	</div>
 {/if}

@@ -93,14 +93,14 @@
 			class="hover:bg-background"
 			full={true}
 			variant="text"
-			icon="settings"
+			left="settings"
 			name="General Settings"
 		/>
 		<Button
 			class="hover:bg-background"
 			full={true}
 			variant="text"
-			icon="lock"
+			left="lock"
 			name="Privacy & Security"
 		/>
 		<Button
@@ -111,7 +111,7 @@
 				toggle();
 				changedTheme($theme.name);
 			}}
-			icon={$theme.name != "light" ? "sun" : "moon"}
+			left={$theme.name != "light" ? "sun" : "moon"}
 			name={$theme.name != "light" ? "Light Mode" : "Dark Mode"}
 		/>
 
@@ -119,15 +119,15 @@
 			class="hover:bg-background"
 			full={true}
 			variant="text"
-			icon="feedback"
+			left="feedback"
 			name="Feedback"
 		/>
 		<Button
 			class="hover:bg-background"
 			full={true}
-			variant="text-error"
+			variant="error"
 			on:click={logout}
-			icon="logout"
+			left="logout"
 			name="Logout"
 		/>
 	</Menu>

@@ -1,4 +1,5 @@
 // @ts-ignore
+import "./main.css";
 import { registerSW } from "virtual:pwa-register";
 
 import App from "./App.svelte";

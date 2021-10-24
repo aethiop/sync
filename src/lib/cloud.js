@@ -38,7 +38,7 @@ export function uploadFile(folder, file) {
 		test = test || [];
 		if (b64.length) {
 			progress.set((1 - b64.length / length) * 100);
-			prev.put({ data: b64String });
+			await prev.put({ data: b64String });
 			prev = prev.get("next");
 			test.push(
 				await SEA.work(b64String, null, null, {
@@ -101,34 +101,6 @@ export async function getFile(folder, fileId) {
 	let proof = await next.get("proof");
 	let size = await next.get("size");
 
-	// async function chunkAndConcatnate(file, chunks) {
-	// 	chunks = chunks || "";
-	// 	if ((await next.get("next").get("data")) !== null) {
-	// 		next = next.get("next");
-	// 		chunks += await next.get("data");
-	// 		chunkAndConcatnate(file, chunks);
-	// 	} else {
-	// 		return chunks;
-	// 	}
-	// }
-	// async function chunkAndConcatnate(next, chunks) {
-	// 	next = next.get("next") || next;
-	// 	var chunks = chunks || "";
-	//
-	// 	if (
-	// 		proof ===
-	// 		(await SEA.work(chunks, null, null, {
-	// 			name: "SHA-256",
-	// 		}))
-	// 	) {
-	// 		return chunks;
-	// 	}
-	// 	next.get("data").once((chunk) => {
-	// 		chunks += chunk;
-	// 	});
-
-	// 	return chunkAndConcatnate(next, chunks);
-	// }
 	downloadingToast(fileId);
 	(async function loop(i) {
 		i = i || 0;
@@ -155,33 +127,6 @@ export async function getFile(folder, fileId) {
 		});
 		loop(i + 1);
 	})();
-
-	// console.log(chunks.length);
-	// console.log(chunks.length);
-	// while ((await next.get("next").get("data")) !== null) {
-	// 	downloading = true;
-	// 	next = next.get("next");
-	// 	chunks += await next.get("data");
-
-	// 	test.push(
-	// 		await SEA.work(await next.get("data"), null, null, {
-	// 			name: "SHA-256",
-	// 		})
-	// 	);
-	// 	console.log(
-	// 		await SEA.work(await next.get("data"), null, null, {
-	// 			name: "SHA-256",
-	// 		})
-	// 	);
-	// }
-	// // console.log(test);
-	// console.log(
-	// 	await SEA.work(chunks, null, null, {
-	// 		name: "SHA-256",
-	// 	})
-	// );
-	// var chunks = await chunkAndConcatnate(next);
-	// return chunks;
 }
 
 export function createFile(folder, name, type) {

@@ -16,9 +16,7 @@
 </script>
 
 <ThemeContext>
-	<div
-		class=" w-full h-screen flex flex-col sm:mt-0 bg-background  items-center"
-	>
+	<div class=" w-full h-screen flex flex-col bg-background  items-center">
 		{#if !$isAuthenticated}
 			<Welcome />
 		{:else}
@@ -43,15 +41,4 @@
 </ThemeContext>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&display=swap");
-
-	@tailwind base;
-	@tailwind components;
-	@tailwind utilities;
-	* {
-		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	}
-	:root {
-		font-family: "Nunito", sans-serif;
-	}
 </style>

@@ -125,10 +125,9 @@ describe(
 							var gun = Gun({
 								file: env.i + "data",
 								web: server,
-								rad: false,
 								localStorage: false,
 							});
-							server.listen(8765, function () {
+							server.listen("8765", function () {
 								// This server peer is now done with the test!
 								// It has successfully launched.
 								test.done();
@@ -209,10 +208,10 @@ describe(
 				);
 				console.log("Add File Clicked");
 				await page.waitForFunction(
-					'document.querySelector(".input-btn.s-B4hhEdIHN9bT")'
+					'document.querySelector(".upload-input")'
 				);
-				const uploadFile = await page.$(".input-btn.s-B4hhEdIHN9bT");
-				await uploadFile.uploadFile(`${__dirname}/test2.pdf`);
+				const uploadFile = await page.$(".upload-input");
+				await uploadFile.uploadFile(`${__dirname}/BigBuckBunny.mp4`);
 				await page.waitForFunction(
 					'document.querySelectorAll(".btn.s-s9p62Vw0ywGS.btn-primary")[1].innerText.includes("Upload")'
 				);
@@ -222,20 +221,20 @@ describe(
 					".btn.s-s9p62Vw0ywGS.btn-primary",
 					(buttons) => buttons[1].click()
 				);
-				// Escape to go out of modal
-				await page.keyboard.press("Escape");
+				// // Escape to go out of modal
+				// await page.keyboard.press("Escape");
 
-				console.log("Upload Finished");
-				await page.waitForFunction(
-					'document.querySelector(".btn.s-s9p62Vw0ywGS.btn-text.justify-center")'
-				);
+				// console.log("Upload Finished");
+				// await page.waitForFunction(
+				// 	'document.querySelector(".btn.s-s9p62Vw0ywGS.btn-text.justify-center")'
+				// );
 
-				// Download button clicked
-				console.log("Download Clicked");
-				await page.$$eval(
-					".btn.s-s9p62Vw0ywGS.btn-text.justify-center",
-					async (buttons) => buttons[1].click()
-				);
+				// // Download button clicked
+				// console.log("Download Clicked");
+				// await page.$$eval(
+				// 	".btn.s-s9p62Vw0ywGS.btn-text.justify-center",
+				// 	async (buttons) => buttons[1].click()
+				// );
 				// console.log(gun);
 				// console.log("Downloading");
 				// setTimeout(done, 500);
