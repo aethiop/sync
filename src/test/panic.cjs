@@ -125,6 +125,7 @@ describe(
 							var gun = Gun({
 								file: env.i + "data",
 								web: server,
+								rad: false,
 								localStorage: false,
 							});
 							server.listen("8765", function () {
@@ -177,7 +178,6 @@ describe(
 						"panic.server('http://localhost:8080'); console.log('333')",
 				});
 				await page.goto("http://localhost:3000");
-				console.log("Panic running");
 
 				await page.focus("input[name='username']");
 				await page.keyboard.type("Anonymous");
@@ -221,6 +221,7 @@ describe(
 					".btn.s-s9p62Vw0ywGS.btn-primary",
 					(buttons) => buttons[1].click()
 				);
+
 				await page.waitForFunction(
 					"document.querySelector('.progress-text').textContent.slice(0,-2) == 100"
 				);
