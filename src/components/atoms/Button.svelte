@@ -23,7 +23,7 @@
 	class:btn-text={variant == "text"}
 	class:btn-text-error={variant == "text-error"}
 	class:w-full={full}
-	class:justify-start={name || left}
+	class:justify-center={!name && left}
 	class="btn"
 >
 	{#if left}

@@ -15,7 +15,7 @@
 			bind:value
 		/>
 	</div>
-	<Button name="Add Friend" icon="add" />
+	<Button name="Add Friend" left="add" />
 	<!-- <FriendModal /> -->
 </div>
 <div class="flex-1 h-full rounded-lg">

@@ -5,12 +5,16 @@
 	export let active;
 	export let icon;
 	export let name;
+	$: activeClass = active ? "bg-primary/25 text-primary" : "";
 </script>
 
 <div
-	class:bg-background={active}
-	class="flex flex-col justify-center w-full cursor-pointer space-x-4 rounded-lg px-2 py-2 sm:px-4 sm:py-1  hover:text-primary  sm:flex-row items-center"
+	class={activeClass +
+		" flex justify-start transition-transform ease-out w-full text-on-background cursor-pointer space-x-4 rounded-lg px-2 py-2 sm:px-4 sm:py-1    flex-row items-center"}
 >
 	<Icon name={icon} fill={active} />
-	<p class="hidden sm:block w-full">{name}</p>
+	<span class:hidden={!active} class=" lg:block pr-2 ">
+		<Text type="body">{name}</Text>
+	</span>
+	<!-- <p class=" sm:block w-full pr-2">{name}</p> -->
 </div>

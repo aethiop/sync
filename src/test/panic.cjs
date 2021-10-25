@@ -221,22 +221,26 @@ describe(
 					".btn.s-s9p62Vw0ywGS.btn-primary",
 					(buttons) => buttons[1].click()
 				);
-				// // Escape to go out of modal
-				// await page.keyboard.press("Escape");
+				await page.waitForFunction(
+					"document.querySelector('.progress-text').textContent.slice(0,-2) == 100"
+				);
 
-				// console.log("Upload Finished");
-				// await page.waitForFunction(
-				// 	'document.querySelector(".btn.s-s9p62Vw0ywGS.btn-text.justify-center")'
-				// );
+				// // Escape to go out of modal
+				await page.keyboard.press("Escape");
+
+				console.log("Upload Finished");
+				await page.waitForFunction(
+					'document.querySelector("..btn.s-s9p62Vw0ywGS.btn-text")'
+				);
 
 				// // Download button clicked
-				// console.log("Download Clicked");
-				// await page.$$eval(
-				// 	".btn.s-s9p62Vw0ywGS.btn-text.justify-center",
-				// 	async (buttons) => buttons[1].click()
-				// );
+				console.log("Download Clicked");
+				await page.$$eval(
+					"..btn.s-s9p62Vw0ywGS.btn-text",
+					async (buttons) => buttons[2].click()
+				);
 				// console.log(gun);
-				// console.log("Downloading");
+				console.log("Downloading");
 				// setTimeout(done, 500);
 			}
 		);

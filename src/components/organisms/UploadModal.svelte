@@ -9,7 +9,7 @@
 	<div slot="trigger" let:open>
 		<div class={$$props.class}>
 			<Button
-				icon="addFile"
+				left="addFile"
 				on:click={open}
 				variant="primary"
 				name="Add File"
@@ -18,6 +18,6 @@
 	</div>
 
 	<div slot="content">
-		<Upload {folder} />
+		<Upload {folder} let:close />
 	</div>
 </Modal>

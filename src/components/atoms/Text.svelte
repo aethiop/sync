@@ -2,6 +2,6 @@
 	export let type;
 </script>
 
-<p class={type + " font-semibold truncate tracking-widest"}>
+<p class={$$props.class + type + " font-semibold truncate tracking-widest"}>
 	<slot />
 </p>

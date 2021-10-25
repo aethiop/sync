@@ -47,7 +47,7 @@
 
 					<Icon
 						class="text-on-background hidden lg:block"
-						name="cdown"
+						name="dots"
 					/>
 				</div>
 			{/await}
@@ -123,7 +123,6 @@
 			name="Feedback"
 		/>
 		<Button
-			class="hover:bg-background"
 			full={true}
 			variant="error"
 			on:click={logout}

@@ -10,7 +10,6 @@
 	import Progress from "$atoms/Progress.svelte";
 	import { uploadFile, fetchFiles, progress } from "$lib/cloud.js";
 	import { addToast } from "$lib/store";
-
 	export let folder;
 	$: file = null;
 	let files = {};
@@ -82,21 +81,25 @@
 
 {#if file}
 	<div class="flex flex-row justify-end space-x-2">
-		<Button
-			on:click={() => {
-				files = {};
-				file = null;
-				$progress = 0;
-			}}
-			icon="refresh"
-			variant="text"
-			name="Reset"
-		/>
-		<Button
-			on:click={selected.func}
-			icon="upload"
-			variant="primary"
-			name="Upload"
-		/>
+		{#key $progress}
+			{#if $progress != 100}
+				<Button
+					on:click={() => {
+						files = {};
+						file = null;
+						$progress = 0;
+					}}
+					left="refresh"
+					variant="text"
+					name="Reset"
+				/>
+
+				<Button
+					on:click={selected.func}
+					left="upload"
+					variant="primary"
+					name="Upload"
+				/>
+			{/if}{/key}
 	</div>
 {/if}

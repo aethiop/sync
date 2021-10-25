@@ -14,7 +14,7 @@
 
 <Modal>
 	<div slot="trigger" let:open>
-		<Icon class="cursor-pointer" on:click={open} name="trash" />
+		<Button on:click={open} variant="text" left="trash" />
 	</div>
 	<div slot="header" class="px-4 ">
 		<Title>{title}</Title>
