@@ -17,6 +17,7 @@
 	on:focus
 	type="submit"
 	class:btn-primary={variant == "primary"}
+	class:py-3={variant == "primary" && !name}
 	class:btn-gradient={variant == "gradient"}
 	class:btn-secondary={variant == "secondary"}
 	class:btn-error={variant == "error"}

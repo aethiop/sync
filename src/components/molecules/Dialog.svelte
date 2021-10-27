@@ -17,10 +17,12 @@
 		<Button on:click={open} variant="text" left="trash" />
 	</div>
 	<div slot="header" class="px-4 ">
-		<Title>{title}</Title>
+		<Text type=" title ">
+			{title}
+		</Text>
 	</div>
 	<div slot="content" class="px-4 overflow-x-auto py-7">
-		<Text>
+		<Text type=" body ">
 			{message}
 		</Text>
 	</div>

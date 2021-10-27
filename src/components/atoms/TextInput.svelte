@@ -12,7 +12,7 @@
 		{placeholder}
 		{name}
 		type="text"
-		class=" px-2 py-2 font-semibold placeholder-hint text-on-background relative bg-surface rounded-xl text-md border-0 shadow-md outline-none focus:ring focus:ring-primary w-full pl-10"
+		class=" px-2 py-2 font-semibold placeholder-hint text-on-background relative bg-surface/75 rounded-xl text-md border-0 shadow-sm outline-none focus:ring focus:ring-primary w-full pl-10"
 	/>
 	<span
 		class="  leading-snug text-center text-hint  absolute items-center justify-center  pl-3 py-2"

@@ -28,7 +28,5 @@
 			bind:value
 		/>
 	</div>
-	<div class="flex flex-row space-x-5 items-center " slot="right">
-		<ProfileMenu profile={$profile} />
-	</div>
+	<div class="flex flex-row space-x-5 items-center " slot="right" />
 </Header>

@@ -5,29 +5,22 @@
 	import TrashFile from "$molecules/TrashFile.svelte";
 	import { files } from "$lib/store.js";
 	import { onMount } from "svelte";
-	import { fetchFiles } from "$lib/cloud.js";
-	export let folder;
+	import { getRequests } from "$lib/friend.js";
+
+	$: friends = [];
 	onMount(() => {
-		fetchFiles(folder);
+		// friends = getRequests();
 	});
 </script>
 
-{#if $files.length > 0}
+{#if friends.length > 0}
 	<div
 		class="flex overflow-hidden w-full p-2 items-center flex-col space-y-4"
-	>
-		{#each $files as { name, folder }}
-			{#if folder.slice(0, 5) == "trash"}
-				<TrashFile {name} {folder} />
-			{:else}
-				<DownloadFile {name} {folder} />
-			{/if}
-		{/each}
-	</div>
+	/>
 {:else}
 	<div
 		class="w-full h-full font-bold tracking-widest flex justify-center items-center"
 	>
-		<Text type=" body ">No files here.</Text>
+		<Text type=" body ">No friends around...[Coming Soon].</Text>
 	</div>
 {/if}

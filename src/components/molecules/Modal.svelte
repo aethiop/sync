@@ -62,7 +62,7 @@
 
 		<div
 			transition:slide={{ delay: 100, duration: 300, easing: quintOut }}
-			class="z-10 bg-surface absolute bottom-0 w-full md:w-1/2  px-2 py-2 rounded-lg text-on-background font-bold"
+			class="z-10 bg-surface absolute bottom-0  w-full md:w-1/2  px-2 py-2 rounded-lg text-on-background font-bold"
 		>
 			<slot name="header" {store} />
 			<slot name="content" {store} />

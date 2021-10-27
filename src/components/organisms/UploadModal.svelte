@@ -7,13 +7,8 @@
 
 <Modal>
 	<div slot="trigger" let:open>
-		<div class={$$props.class}>
-			<Button
-				left="addFile"
-				on:click={open}
-				variant="primary"
-				name="Add File"
-			/>
+		<div class={$$props.class + " lg:absolute lg:bottom-4 lg:right-4"}>
+			<Button left="addFile" on:click={open} variant="primary" />
 		</div>
 	</div>
 

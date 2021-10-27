@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { writable } from "svelte/store";
 import { tweened } from "svelte/motion";
 import { user } from "./db.js";
 import { uriToFile } from "./helper.js";
@@ -10,7 +9,6 @@ import { addToast, dismissToast } from "$lib/store";
 export let downloading = false;
 export let data = null;
 export let progress = tweened(0);
-let reader = {};
 const downloadingToast = (fileId) => {
 	addToast({
 		id: fileId,
@@ -28,34 +26,37 @@ const downloadSuccess = (fileId) => {
 		timeout: 3000,
 	});
 };
-export function uploadFile(folder, file) {
+
+export function uploadFile(folder, file, encrypt) {
 	var slice_size = 1024 * 1024;
 	let length;
-	let prev = user.get(folder);
+	let prev = user.get(folder).get(file.name);
 
-	async function splitAndUpload(b64, test) {
+	async function splitAndUpload(b64, chunks) {
+		chunks = chunks || 0;
 		var b64String = b64.slice(0, slice_size);
-		test = test || [];
+
 		if (b64.length) {
 			progress.set((1 - b64.length / length) * 100);
-			await prev.put({ data: b64String });
-			prev = prev.get("next");
-			test.push(
-				await SEA.work(b64String, null, null, {
-					name: "SHA-256",
-				})
+			console.log(
+				"Upload Progress: ",
+				(1 - b64.length / length) * 100 + " %"
 			);
-			splitAndUpload(b64.slice(slice_size), test);
+
+			// console.log(prev);
+			prev.get(chunks).put(b64String);
+
+			chunks++;
+			splitAndUpload(b64.slice(slice_size), chunks);
 		} else {
-			console.log(test);
 			progress.set(100);
 		}
 	}
 	function upload() {
 		if (file) {
-			reader = new FileReader();
+			var reader = new FileReader();
 			createFile(folder, file.name, file.type);
-			prev = user.get(folder).get(file.name).get("next");
+			prev = user.get(folder).get(file.name);
 
 			reader.onloadend = async function (e) {
 				if (file.size <= slice_size) {
@@ -72,13 +73,14 @@ export function uploadFile(folder, file) {
 							name: "SHA-256",
 						})
 					);
+				console.log("B64: ", b64.length);
 				splitAndUpload(b64);
 			};
 			reader.readAsDataURL(file);
 		}
 	}
 
-	return upload();
+	upload();
 }
 
 export function fetchFiles(folder) {
@@ -104,7 +106,7 @@ export async function getFile(folder, fileId) {
 	downloadingToast(fileId);
 	(async function loop(i) {
 		i = i || 0;
-		next = next.get("next");
+
 		if (
 			proof ===
 			(await SEA.work(chunks.join(""), null, null, {
@@ -118,10 +120,11 @@ export async function getFile(folder, fileId) {
 			downloadSuccess(fileId);
 			return;
 		}
-		next.get("data").once((chunk) => {
+		next.get(i).once((chunk) => {
 			chunks[i] = chunk;
 			console.log(
-				((chunks.join("").length / size) * 100).toFixed(2),
+				("Download Progress: ",
+				(chunks.join("").length / size) * 100).toFixed(2),
 				"%"
 			);
 		});

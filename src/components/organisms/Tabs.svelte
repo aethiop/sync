@@ -10,7 +10,7 @@
 </script>
 
 <div
-	class="w-full mb-5  px-4 mx-4 lg:mx-0 sm:px-0 lg:h-full overflow-y-hidden  flex flex-col-reverse lg:flex-row text-on-background "
+	class="w-full mb-5  px-1 mx-4 lg:mx-0 lg:px-0 lg:h-full overflow-y-hidden  flex flex-col-reverse lg:flex-row text-on-background "
 >
 	<ul
 		class="flex items-center rounded-xl lg:rounded-none lg:justify-between flex-row lg:flex-col lg:w-1/5 lg:pt-4 px-4 bg-surface lg:space-y-2 bg-primary[0.25]"
@@ -39,7 +39,7 @@
 	</ul>
 	{#each items as item}
 		{#if activeTabValue == item.value}
-			<div class="w-full h-full overflow-hidden  ">
+			<div class="w-full lg:px-5 h-full overflow-hidden  ">
 				<svelte:component this={item.component} />
 			</div>
 		{/if}

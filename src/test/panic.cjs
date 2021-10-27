@@ -125,7 +125,6 @@ describe(
 							var gun = Gun({
 								file: env.i + "data",
 								web: server,
-								rad: false,
 								localStorage: false,
 							});
 							server.listen("8765", function () {
@@ -198,7 +197,7 @@ describe(
 
 				console.log("Logged In");
 				await page.waitForFunction(
-					'document.querySelector(".btn.s-s9p62Vw0ywGS.btn-primary").innerText.includes("Add File")'
+					'document.querySelector(".btn.s-s9p62Vw0ywGS.btn-primary.py-3.justify-center")'
 				);
 				// await page.waitForSel({ waitUntil: "load" });
 				// Add File button clicked
@@ -212,6 +211,7 @@ describe(
 				);
 				const uploadFile = await page.$(".upload-input");
 				await uploadFile.uploadFile(`${__dirname}/BigBuckBunny.mp4`);
+
 				await page.waitForFunction(
 					'document.querySelectorAll(".btn.s-s9p62Vw0ywGS.btn-primary")[1].innerText.includes("Upload")'
 				);
@@ -231,13 +231,13 @@ describe(
 
 				console.log("Upload Finished");
 				await page.waitForFunction(
-					'document.querySelector("..btn.s-s9p62Vw0ywGS.btn-text")'
+					'document.querySelector(".btn.s-s9p62Vw0ywGS.btn-text")'
 				);
 
 				// // Download button clicked
 				console.log("Download Clicked");
 				await page.$$eval(
-					"..btn.s-s9p62Vw0ywGS.btn-text",
+					".btn.s-s9p62Vw0ywGS.btn-text",
 					async (buttons) => buttons[2].click()
 				);
 				// console.log(gun);
