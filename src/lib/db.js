@@ -9,7 +9,10 @@ import "gun/lib/radisk";
 // GUN.log.off = true;
 import { writable } from "svelte/store";
 export const gun = GUN({
-	peers: ["https://marda.herokuapp.com/gun"],
+	peers: [
+		"https://marda.herokuapp.com/gun",
+		"http://gun-matrix.herokuapp.com/gun",
+	],
 	localStorage: false,
 });
 export const user = gun.user().recall({ sessionStorage: true });
