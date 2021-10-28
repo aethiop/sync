@@ -6,7 +6,12 @@
 	import Button from "$atoms/Button.svelte";
 	import File from "$atoms/File.svelte";
 	import Dialog from "$molecules/Dialog.svelte";
-	import { deleteFile, fetchFiles } from "$lib/cloud.js";
+	import {
+		deleteFile,
+		fetchFiles,
+		uploading,
+		downloading,
+	} from "$lib/cloud.js";
 	import { getFile } from "$lib/cloud.js";
 	import { addToast } from "$lib/store.js";
 	import { user } from "$lib/db.js";
@@ -14,7 +19,6 @@
 	export let name;
 	export let folder;
 
-	let downloading = false;
 	let data = null;
 	let dataType;
 	const deleteCompleted = () => {
@@ -35,6 +39,14 @@
 </script>
 
 <File {name} type={dataType}>
+	<div class="flex flex-row space-x-2">
+		{#if $downloading}
+			<Icon class="text-success" name="download" />
+		{/if}
+		{#if $uploading}
+			<Icon class="text-primary" name="upload" />
+		{/if}
+	</div>
 	<Button left="share" variant="text" />
 	<Dialog
 		title="Are you sure you want to trash this file?"
@@ -53,5 +65,13 @@
 		/></Dialog
 	>
 
-	<Button left="download" variant="text" on:click={() => download()} />
+	<Button
+		left="download"
+		variant="text"
+		on:click={() => {
+			if (!$downloading) {
+				download();
+			}
+		}}
+	/>
 </File>

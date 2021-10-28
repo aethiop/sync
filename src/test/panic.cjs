@@ -235,13 +235,13 @@ describe(
 				);
 
 				// // Download button clicked
-				console.log("Download Clicked");
-				await page.$$eval(
-					".btn.s-s9p62Vw0ywGS.btn-text",
-					async (buttons) => buttons[2].click()
-				);
-				// console.log(gun);
-				console.log("Downloading");
+				// console.log("Download Clicked");
+				// await page.$$eval(
+				// 	".btn.s-s9p62Vw0ywGS.btn-text",
+				// 	async (buttons) => buttons[2].click()
+				// );
+				// // console.log(gun);
+				// console.log("Downloading");
 				// setTimeout(done, 500);
 			}
 		);
