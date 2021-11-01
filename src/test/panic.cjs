@@ -169,9 +169,7 @@ describe(
 				await page.addScriptTag({
 					url: "http://localhost:8080/panic.js",
 				});
-				await page.addScriptTag({
-					url: "https://cdn.jsdelivr.net/npm/gun/examples/jquery.js",
-				});
+
 				await page.addScriptTag({
 					content:
 						"panic.server('http://localhost:8080'); console.log('333')",
@@ -210,7 +208,7 @@ describe(
 					'document.querySelector(".upload-input")'
 				);
 				const uploadFile = await page.$(".upload-input");
-				await uploadFile.uploadFile(`${__dirname}/BigBuckBunny.mp4`);
+				await uploadFile.uploadFile(`${__dirname}/LOFI.mp3`);
 
 				await page.waitForFunction(
 					'document.querySelectorAll(".btn.s-s9p62Vw0ywGS.btn-primary")[1].innerText.includes("Upload")'
@@ -235,25 +233,25 @@ describe(
 				);
 
 				// // Download button clicked
-				// console.log("Download Clicked");
-				// await page.$$eval(
-				// 	".btn.s-s9p62Vw0ywGS.btn-text",
-				// 	async (buttons) => buttons[2].click()
-				// );
-				// // console.log(gun);
-				// console.log("Downloading");
+				console.log("Download Clicked");
+				await page.$$eval(
+					".btn.s-s9p62Vw0ywGS.btn-text",
+					async (buttons) => buttons[3].click()
+				);
+				// console.log(gun);
+				console.log("Downloading");
 				// setTimeout(done, 500);
 			}
 		);
 
 		after("Everything shut down.", function () {
 			// which is to shut down all the browsers.
-			require("gun/test/panic/util/open").cleanup() ||
-				browsers.run(function () {
-					setTimeout(function () {
-						location.reload();
-					}, 15 * 1000);
-				});
+			// require("gun/test/panic/util/open").cleanup() ||
+			// 	browsers.run(function () {
+			// 		setTimeout(function () {
+			// 			location.reload();
+			// 		}, 15 * 1000);
+			// 	});
 			// And shut down all the servers.
 			return servers.run(function () {
 				process.exit();

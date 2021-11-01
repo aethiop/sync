@@ -1,23 +1,22 @@
 // @ts-nocheck
 import { tweened } from "svelte/motion";
 import { writable } from "svelte/store";
-import { user } from "./db.js";
+import { gun, user } from "./db.js";
 import { uriToFile } from "./helper.js";
-import { files } from "./store.js";
+import { downloadQueue, files, uploadQueue } from "./store.js";
 import FileSaver from "file-saver";
 import { addToast, dismissToast } from "$lib/store";
 
-export let uploading = writable(false);
-export let downloading = writable(false);
+export let downloading = tweened(0);
 export let data = null;
-export let progress = tweened(0);
-export let downloadProgress = tweened(0);
+export let uploading = tweened(0);
 const downloadingToast = (fileId) => {
 	addToast({
 		id: fileId,
 		message: `Downloading ${fileId}, Please Wait...`,
 		type: "info",
-		dismissible: false,
+		dismissible: true,
+		timeout: 1000,
 	});
 };
 
@@ -33,6 +32,8 @@ const downloadSuccess = (fileId) => {
 export function uploadFile(folder, file) {
 	var slice_size = 1024 * 1024;
 	let length;
+	let proof;
+	uploadQueue.set(file.name);
 	var prev = user.get(folder).get(file.name);
 
 	async function splitAndUpload(b64, chunks) {
@@ -40,29 +41,20 @@ export function uploadFile(folder, file) {
 		var b64String = b64.slice(0, slice_size);
 
 		if (b64.length) {
-			progress.set((1 - b64.length / length) * 100);
+			uploading.set((1 - b64.length / length) * 100);
 			console.log(
 				"Upload Progress: ",
 				(1 - b64.length / length) * 100 + " %"
 			);
-
-			prev.get(chunks).put(b64String, ({ ok }) => {
+			prev.get(chunks).put(b64String, ({ ok, err }) => {
 				if (ok) {
 					chunks++;
 					splitAndUpload(b64.slice(slice_size), chunks);
 				}
 			});
+			uploadQueue.set("");
 		} else {
-			progress.set(100);
-			user.get(folder).get(file.name).get("size").put(length);
-			user.get(folder)
-				.get(file.name)
-				.get("proof")
-				.put(
-					await SEA.work(b64, null, null, {
-						name: "SHA-256",
-					})
-				);
+			uploading.set(100);
 		}
 	}
 	function upload() {
@@ -76,9 +68,12 @@ export function uploadFile(folder, file) {
 				}
 				let b64 = e.target.result;
 				length = b64.length;
-				uploading.set(true);
+				proof = await SEA.work(b64, null, null, {
+					name: "SHA-256",
+				});
+				user.get(folder).get(file.name).get("size").put(length);
+				user.get(folder).get(file.name).get("proof").put(proof);
 				splitAndUpload(b64);
-				uploading.set(true);
 			};
 			reader.readAsDataURL(file);
 		}
@@ -93,7 +88,6 @@ export function fetchFiles(folder) {
 	user.get(folder)
 		.map()
 		.once(async (d, name) => {
-			console.log(d.size);
 			if (d) {
 				data = [...data, { name: name, folder: folder }];
 				files.set(data);
@@ -103,39 +97,45 @@ export function fetchFiles(folder) {
 }
 
 export async function getFile(folder, fileId) {
-	let chunks = [];
 	var next = user.get(folder).get(fileId);
 	let proof = await next.get("proof");
 	let size = await next.get("size");
 	downloadingToast(fileId);
-	downloading.set(true);
-	(async function loop(i) {
+	downloading.set(0);
+	downloadQueue.set(fileId);
+	(async function loop(i, chunks) {
 		i = i || 0;
+		chunks = chunks || [];
+		// let chunk = await next.get(i);
 
-		if (
-			proof ===
-			(await SEA.work(chunks.join(""), null, null, {
-				name: "SHA-256",
-			}))
-		) {
-			dismissToast(fileId);
-			uriToFile(chunks.join("")).then((blob) => {
-				FileSaver.saveAs(blob, fileId);
-			});
-			downloadSuccess(fileId);
-			return;
-		}
-		next.get(i).once((chunk) => {
-			chunks[i] = chunk;
-			console.log(
-				("Download Progress: ",
-				(chunks.join("").length / size) * 100).toFixed(2),
-				"%"
-			);
+		let currentProof = await SEA.work(chunks.join(""), null, null, {
+			name: "SHA-256",
 		});
-		loop(i + 1);
+		next.get(i).once((chunk) => {
+			if (chunk) {
+				chunks[i] = chunk;
+				downloading.set((chunks.join("").length / size) * 100);
+				console.log(
+					"Download Progress: ",
+					((chunks.join("").length / size) * 100).toFixed(2),
+					"%"
+				);
+				loop(i + 1, chunks);
+			} else {
+				if (size === chunks.join("").length && proof === currentProof) {
+					console.log("DONE");
+					downloadQueue.set("");
+					downloading.set(100);
+					uriToFile(chunks.join("")).then((blob) => {
+						FileSaver.saveAs(blob, fileId);
+					});
+					downloadSuccess(fileId);
+					return chunks.join("");
+				}
+				loop(i, chunks);
+			}
+		});
 	})();
-	downloading.set(false);
 }
 
 export function createFile(folder, name, type) {

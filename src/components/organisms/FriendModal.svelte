@@ -15,19 +15,34 @@
 			inputIcon: "at",
 		},
 	];
+	let modal;
 </script>
 
-<Modal>
-	<div slot="trigger" let:open>
-		<div class={$$props.class + "z-50 lg:absolute lg:bottom-4 lg:right-4"}>
-			<Button left="addFriend" on:click={open} variant="primary" />
-		</div>
+<Modal bind:this={modal}>
+	<Button
+		left="addFriend"
+		on:click={() => {
+			modal.show();
+		}}
+		variant="primary"
+	/>
+	<div
+		class="flex flex-row justify-between items-center px-2 py-2"
+		slot="header"
+	>
+		<Text type=" title ">Add Friend</Text>
+		<Button
+			left="close"
+			on:click={() => {
+				modal.hide();
+			}}
+			variant="text"
+		/>
 	</div>
 	<div
 		slot="content"
 		class="w-full flex flex-col items-center  justify-center"
 	>
-		<Text type=" title pb-4 ">Add Friend</Text>
 		<Form
 			pos="center"
 			icon="addFriend"

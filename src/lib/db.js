@@ -3,14 +3,14 @@ import SEA from "gun/sea";
 import "gun/axe";
 import "gun/lib/then";
 import "gun/lib/promise";
-import "gun/lib/rindexed";
 import "gun/lib/radix";
 import "gun/lib/radisk";
+import "gun/lib/store";
+import "gun/lib/rindexed";
 // GUN.log.off = true;
 import { writable } from "svelte/store";
 export const gun = GUN({
 	peers: [
-		// "http://localhost:8765/gun",
 		"https://marda.herokuapp.com/gun",
 		"http://gun-matrix.herokuapp.com/gun",
 	],

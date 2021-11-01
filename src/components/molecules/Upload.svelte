@@ -8,7 +8,7 @@
 	import Text from "$atoms/Text.svelte";
 	import Button from "$atoms/Button.svelte";
 	import Progress from "$atoms/Progress.svelte";
-	import { uploadFile, fetchFiles, progress } from "$lib/cloud.js";
+	import { uploadFile, fetchFiles, uploading } from "$lib/cloud.js";
 	import { addToast } from "$lib/store";
 	export let folder;
 	$: file = null;
@@ -17,7 +17,7 @@
 		if (files[0]) file = files[0];
 	}
 	onMount(() => {
-		$progress = 0;
+		$uploading = 0;
 		files = {};
 	});
 	let options = [
@@ -31,14 +31,16 @@
 	}
 
 	function uploadtoGun() {
-		uploadFile(folder, file);
-		fetchFiles(folder);
-		addToast({
-			message: `File has been uploaded`,
-			type: "success",
-			dismissible: true,
-			timeout: 3000,
-		});
+		if (!($uploading > 0 && $uploading < 100)) {
+			uploadFile(folder, file);
+			fetchFiles(folder);
+			addToast({
+				message: `File has been uploaded`,
+				type: "success",
+				dismissible: true,
+				timeout: 3000,
+			});
+		}
 	}
 </script>
 
@@ -46,13 +48,13 @@
 	<div class="pb-4">
 		<div class="px-5 py-2">
 			<Text type="h3"
-				>{$progress != 100
+				>{$uploading != 100
 					? "Finish Uploading"
 					: "Successfully Uploaded"}</Text
 			>
 		</div>
 		<div class="py-2 px-4">
-			<Progress progress={$progress} />
+			<Progress progress={$uploading} />
 		</div>
 		<div>
 			<File name={file.name} type={file.type.split("/")[0]} />
@@ -81,13 +83,13 @@
 
 {#if file}
 	<div class="flex flex-row justify-end space-x-2">
-		{#key $progress}
-			{#if $progress != 100}
+		{#key $uploading}
+			{#if $uploading != 100}
 				<Button
 					on:click={() => {
 						files = {};
 						file = null;
-						$progress = 0;
+						$uploading = 0;
 					}}
 					left="refresh"
 					variant="text"

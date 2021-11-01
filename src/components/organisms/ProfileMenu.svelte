@@ -94,6 +94,9 @@
 			full={true}
 			variant="text"
 			left="settings"
+			on:click={() => {
+				history.pushState(null, "", location.origin + "/#/settings");
+			}}
 			name="General Settings"
 		/>
 		<Button

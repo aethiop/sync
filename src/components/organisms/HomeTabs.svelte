@@ -18,11 +18,12 @@
 		<div
 			class="flex w-full justify-between pr-4 lg:pr-0 lg:space-y-2 lg:flex-col"
 		>
-			<div
+			<a
+				href="/"
 				class="hidden lg:flex w-full justify-center items-center space-x-5 pb-2"
 			>
 				<Logo class="w-14 h-14" />
-			</div>
+			</a>
 			{#each items as item}
 				<li class="" on:click={handleClick(item.value)}>
 					<IconLink

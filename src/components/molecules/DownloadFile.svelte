@@ -2,18 +2,19 @@
 	// @ts-nocheck
 
 	import Icon from "$atoms/Icon.svelte";
-	import { onMount } from "svelte";
+	import Text from "$atoms/Text.svelte";
+	import { onMount, onDestroy } from "svelte";
 	import Button from "$atoms/Button.svelte";
 	import File from "$atoms/File.svelte";
 	import Dialog from "$molecules/Dialog.svelte";
 	import {
+		getFile,
 		deleteFile,
 		fetchFiles,
 		uploading,
 		downloading,
 	} from "$lib/cloud.js";
-	import { getFile } from "$lib/cloud.js";
-	import { addToast } from "$lib/store.js";
+	import { addToast, uploadQueue, downloadQueue } from "$lib/store.js";
 	import { user } from "$lib/db.js";
 	import { uriToFile } from "$lib/helper.js";
 	export let name;
@@ -21,6 +22,7 @@
 
 	let data = null;
 	let dataType;
+
 	const deleteCompleted = () => {
 		addToast({
 			message: `File has been deleted! Its been moved to trash folder.`,
@@ -39,14 +41,7 @@
 </script>
 
 <File {name} type={dataType}>
-	<div class="flex flex-row space-x-2">
-		{#if $downloading}
-			<Icon class="text-success" name="download" />
-		{/if}
-		{#if $uploading}
-			<Icon class="text-primary" name="upload" />
-		{/if}
-	</div>
+	<div class="flex flex-row space-x-2" />
 	<Button left="share" variant="text" />
 	<Dialog
 		title="Are you sure you want to trash this file?"
@@ -69,9 +64,9 @@
 		left="download"
 		variant="text"
 		on:click={() => {
-			if (!$downloading) {
-				download();
-			}
+			// if ($current == "") {
+			download();
+			// }
 		}}
 	/>
 </File>

@@ -9,64 +9,75 @@
 	import { booleanStore } from "$lib/boolean";
 	import { slide } from "svelte/transition";
 	import { quintOut } from "svelte/easing";
-	const store = booleanStore(false);
-	const { isOpen, open, close } = store;
-	function keydown(e) {
-		e.stopPropagation();
-		if (e.key === "Escape") {
-			close();
-		}
+	// const store = booleanStore(false);
+	// const { isOpen, open, close } = store;
+	// function keydown(e) {
+	// 	e.stopPropagation();
+	// 	if (e.key === "Escape") {
+	// 		close();
+	// 	}
+	// }
+	let shown = false;
+
+	export function hide() {
+		shown = false;
 	}
-	function transitionend(e) {
-		const node = e.target;
-		node.focus();
+	export function show() {
+		shown = true;
 	}
-	function modalAction(node) {
-		const returnFn = [];
-		// for accessibility
-		if (document.body.style.overflow !== "hidden") {
-			const original = document.body.style.overflow;
-			document.body.style.overflow = "hidden";
-			returnFn.push(() => {
-				document.body.style.overflow = original;
-			});
-		}
-		node.addEventListener("keydown", keydown);
-		node.addEventListener("transitionend", transitionend);
-		node.focus();
-		modalList.push(node);
-		returnFn.push(() => {
-			node.removeEventListener("keydown", keydown);
-			node.removeEventListener("transitionend", transitionend);
-			modalList.pop();
-			// Optional chaining to guard against empty array.
-			modalList[modalList.length - 1]?.focus();
-		});
-		return {
-			destroy: () => returnFn.forEach((fn) => fn()),
-		};
-	}
+
+	// function transitionend(e) {
+	// 	const node = e.target;
+	// 	node.focus();
+	// }
+	// function modalAction(node) {
+	// 	const returnFn = [];
+	// 	// for accessibility
+	// 	if (document.body.style.overflow !== "hidden") {
+	// 		const original = document.body.style.overflow;
+	// 		document.body.style.overflow = "hidden";
+	// 		returnFn.push(() => {
+	// 			document.body.style.overflow = original;
+	// 		});
+	// 	}
+	// 	node.addEventListener("keydown", keydown);
+	// 	node.addEventListener("transitionend", transitionend);
+	// 	node.focus();
+	// 	modalList.push(node);
+	// 	returnFn.push(() => {
+	// 		node.removeEventListener("keydown", keydown);
+	// 		node.removeEventListener("transitionend", transitionend);
+	// 		modalList.pop();
+	// 		// Optional chaining to guard against empty array.
+	// 		modalList[modalList.length - 1]?.focus();
+	// 	});
+	// 	return {
+	// 		destroy: () => returnFn.forEach((fn) => fn()),
+	// 	};
+	// }
 </script>
 
-<slot name="trigger" {open} />
-{#if $isOpen}
+<svelte:window
+	on:keydown={(e) => {
+		console.log(e);
+		if (e.keyCode == 27) {
+			hide();
+		}
+	}}
+/>
+<slot />
+{#if shown}
 	<div
 		class="absolute flex w-full h-full justify-center items-center inset-0"
-		use:modalAction
 		tabindex="0"
 	>
-		<div
-			class="absolute w-full h-full transition-all px-10 delay-75 backdrop-filter backdrop-blur-sm "
-			on:click={close}
-		/>
-
 		<div
 			transition:slide={{ delay: 100, duration: 300, easing: quintOut }}
 			class="z-10 bg-surface absolute bottom-0  w-full md:w-1/2  px-2 py-2 rounded-lg text-on-background font-bold"
 		>
-			<slot name="header" {store} />
-			<slot name="content" {store} />
-			<slot name="footer" {store} />
+			<slot name="header" />
+			<slot name="content" />
+			<slot name="footer" />
 		</div>
 	</div>
 {/if}

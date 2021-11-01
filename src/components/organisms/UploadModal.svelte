@@ -2,34 +2,39 @@
 	import Button from "$atoms/Button.svelte";
 	import Modal from "$molecules/Modal.svelte";
 	import Upload from "$molecules/Upload.svelte";
-	import { uploading } from "$lib/cloud.js";
+	// import { current } from "$lib/cloud.js";
 	import { addToast } from "$lib/store.js";
 	export let folder;
+	let modal;
 </script>
 
-<Modal>
-	<div slot="trigger" let:open>
-		<div class={$$props.class + " lg:absolute lg:bottom-4 lg:right-4"}>
-			<Button
-				left="addFile"
-				on:click={() => {
-					if ($uploading) {
-						addToast({
-							message: `Uploading in progress`,
-							type: "error",
-							dismissible: true,
-							timeout: 400,
-						});
-						return;
-					}
-					open();
-				}}
-				variant="primary"
-			/>
-		</div>
+<Modal bind:this={modal}>
+	<Button
+		left="addFile"
+		on:click={() => {
+			// if ($current) {
+			// addToast({
+			// 	message: `Uploading in progress`,
+			// 	type: "error",
+			// 	dismissible: true,
+			// 	timeout: 400,
+			// });
+			// return;
+			// // }
+			modal.show();
+		}}
+		variant="primary"
+	/>
+	<div class="px-2 py-2 flex justify-end" slot="header">
+		<Button
+			left="close"
+			on:click={() => {
+				modal.hide();
+			}}
+			variant="text"
+		/>
 	</div>
-
 	<div slot="content">
-		<Upload {folder} let:close />
+		<Upload {folder} />
 	</div>
 </Modal>
