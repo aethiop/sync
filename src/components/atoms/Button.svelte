@@ -25,6 +25,7 @@
 	class:btn-error={variant == "error"}
 	class:btn-text={variant == "text"}
 	class:btn-text-error={variant == "text-error"}
+	class:btn-text-secondary={variant == "text-secondary"}
 	class:w-full={full}
 	class:justify-center={!name && left}
 	class="btn"

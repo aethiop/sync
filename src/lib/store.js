@@ -3,9 +3,18 @@ import { writable } from "svelte/store";
 export const isAuthenticated = writable(false);
 export const profile = writable({});
 export const files = writable([]);
+export const friends = writable([]);
+export const requests = writable([]);
 export const uploadQueue = writable("");
 export const downloadQueue = writable("");
 export const toasts = writable([]);
+
+export const addFile = (file) => {
+	files.update((files) => [...files, file]);
+};
+export const removeFile = (file) => {
+	files.update((files) => files.filter((f) => f.name !== file.name));
+};
 
 export const dismissToast = (id) => {
 	toasts.update((all) => all.filter((t) => t.id !== id));

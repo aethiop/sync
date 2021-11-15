@@ -1,0 +1,10 @@
+{
+  "appId": "com.marda.sync",
+  "appName": "sync",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "http://192.168.0.105:3000",
+    "cleartext": true
+  }
+}

@@ -40,7 +40,7 @@
 	</ul>
 	{#each items as item}
 		{#if activeTabValue == item.value}
-			<div class="w-full lg:px-5 h-full overflow-hidden  ">
+			<div class="w-full pt-7 lg:px-5 h-full overflow-hidden  ">
 				<svelte:component this={item.component} />
 			</div>
 		{/if}

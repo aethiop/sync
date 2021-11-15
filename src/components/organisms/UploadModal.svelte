@@ -23,9 +23,9 @@
 			// // }
 			modal.show();
 		}}
-		variant="primary"
+		variant="text"
 	/>
-	<div class="px-2 py-2 flex justify-end" slot="header">
+	<div class="py-2 flex justify-end" slot="header">
 		<Button
 			left="close"
 			on:click={() => {

@@ -6,7 +6,7 @@
 	import Button from "$atoms/Button.svelte";
 	import File from "$atoms/File.svelte";
 	import Dialog from "$molecules/Dialog.svelte";
-	import { restoreFile, completeRemove, fetchFiles } from "$lib/cloud.js";
+	import { restoreFile, completeRemove } from "$lib/cloud.js";
 
 	import { user } from "$lib/db.js";
 	import { addToast } from "$lib/store";
@@ -42,7 +42,6 @@
 			console.log(folder);
 			restoreFile(folder, name);
 			restoreCompleted();
-			fetchFiles(folder);
 		}}
 	/>
 	<Dialog
@@ -57,7 +56,6 @@
 			on:click={() => {
 				completeRemove(folder, name);
 				removeCompleted();
-				fetchFiles(folder);
 				close();
 			}}
 		/></Dialog

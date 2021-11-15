@@ -18,7 +18,7 @@
 			message: `${what} has been copied succesfully!`,
 			type: "success",
 			dismissible: true,
-			timeout: 3000,
+			timeout: 300,
 		});
 	};
 	const changedTheme = (to) => {
@@ -28,7 +28,7 @@
 			} Mode has been activated!`,
 			type: "info",
 			dismissible: true,
-			timeout: 3000,
+			timeout: 300,
 		});
 	};
 	$: console.log($theme);

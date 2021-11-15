@@ -8,7 +8,7 @@
 	import Text from "$atoms/Text.svelte";
 	import Button from "$atoms/Button.svelte";
 	import Progress from "$atoms/Progress.svelte";
-	import { uploadFile, fetchFiles, uploading } from "$lib/cloud.js";
+	import { uploadFile, uploading } from "$lib/cloud.js";
 	import { addToast } from "$lib/store";
 	export let folder;
 	$: file = null;
@@ -33,7 +33,6 @@
 	function uploadtoGun() {
 		if (!($uploading > 0 && $uploading < 100)) {
 			uploadFile(folder, file);
-			fetchFiles(folder);
 			addToast({
 				message: `File has been uploaded`,
 				type: "success",

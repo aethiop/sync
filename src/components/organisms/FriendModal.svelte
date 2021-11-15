@@ -10,7 +10,7 @@
 			id: "pub",
 			type: "text",
 			value: "",
-			placeholder: "Enter your friends public key",
+			placeholder: "Your Friend's Address",
 			inputType: "text",
 			inputIcon: "at",
 		},
@@ -24,7 +24,7 @@
 		on:click={() => {
 			modal.show();
 		}}
-		variant="primary"
+		variant="text"
 	/>
 	<div
 		class="flex flex-row justify-between items-center px-2 py-2"

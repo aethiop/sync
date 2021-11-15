@@ -1,7 +1,7 @@
 <script>
 	import { createEventDispatcher } from "svelte";
-	import { slide } from "svelte/transition";
-	import { quintOut } from "svelte/easing";
+	import { slide, fly } from "svelte/transition";
+	import { quintIn, quintOut } from "svelte/easing";
 	import Icon from "$atoms/Icon.svelte";
 	const dispatch = createEventDispatcher();
 
@@ -11,7 +11,8 @@
 
 <div
 	class="flex flex-row px-2 py-2 bg-surface justify-between text-on-background rounded-xl items-center"
-	transition:slide={{ delay: 100, duration: 300, easing: quintOut }}
+	in:slide={{ delay: 50, duration: 300, easing: quintOut }}
+	out:slide={{ delay: 50, duration: 300, easing: quintIn }}
 >
 	{#if type === "success"}
 		<Icon name="check" />

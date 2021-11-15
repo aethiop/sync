@@ -5,7 +5,8 @@ import { gun, user } from "./db.js";
 import { uriToFile } from "./helper.js";
 import { downloadQueue, files, uploadQueue } from "./store.js";
 import FileSaver from "file-saver";
-import { addToast, dismissToast } from "$lib/store";
+import { addFile, addToast, dismissToast } from "$lib/store";
+import Gun from "gun/gun";
 
 export let downloading = tweened(0);
 export let data = null;
@@ -36,27 +37,6 @@ export function uploadFile(folder, file) {
 	uploadQueue.set(file.name);
 	var prev = user.get(folder).get(file.name);
 
-	async function splitAndUpload(b64, chunks) {
-		chunks = chunks || 0;
-		var b64String = b64.slice(0, slice_size);
-
-		if (b64.length) {
-			uploading.set((1 - b64.length / length) * 100);
-			console.log(
-				"Upload Progress: ",
-				(1 - b64.length / length) * 100 + " %"
-			);
-			prev.get(chunks).put(b64String, ({ ok, err }) => {
-				if (ok) {
-					chunks++;
-					splitAndUpload(b64.slice(slice_size), chunks);
-				}
-			});
-			uploadQueue.set("");
-		} else {
-			uploading.set(100);
-		}
-	}
 	function upload() {
 		if (file) {
 			var reader = new FileReader();
@@ -73,7 +53,11 @@ export function uploadFile(folder, file) {
 				});
 				user.get(folder).get(file.name).get("size").put(length);
 				user.get(folder).get(file.name).get("proof").put(proof);
-				splitAndUpload(b64);
+				user.get(folder)
+					.get(file.name)
+					.storeB64(b64, null, (progress) => {
+						uploading.set(progress);
+					});
 			};
 			reader.readAsDataURL(file);
 		}
@@ -82,19 +66,17 @@ export function uploadFile(folder, file) {
 	upload();
 }
 
-export function fetchFiles(folder) {
-	var data = [];
-	files.set([]);
-	user.get(folder)
-		.map()
-		.once(async (d, name) => {
-			if (d) {
-				data = [...data, { name: name, folder: folder }];
-				files.set(data);
-			}
-		});
-	data = [];
-}
+// export function fetchFiles(folder) {
+// 	var data = [];
+// 	user.get(folder)
+// 		.map()
+// 		.once(async (d, name) => {
+// 			if (d) {
+// 				data = [...data, { name: name, folder: folder }];
+// 				addFile({ name: name, folder: folder });
+// 			}
+// 		});
+// }
 
 export async function getFile(folder, fileId) {
 	var next = user.get(folder).get(fileId);

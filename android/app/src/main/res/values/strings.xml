@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">sync</string>
+    <string name="title_activity_main">sync</string>
+    <string name="package_name">com.marda.sync</string>
+    <string name="custom_url_scheme">com.marda.sync</string>
+</resources>

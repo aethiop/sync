@@ -6,16 +6,14 @@
 	import Text from "$atoms/Text.svelte";
 	import Button from "$atoms/Button.svelte";
 	import Modal from "$molecules/Modal.svelte";
-
+	let modal;
 	export let title;
 	export let message;
 	export let cancel;
 </script>
 
-<Modal>
-	<div slot="trigger" let:open>
-		<Button on:click={open} variant="text" left="trash" />
-	</div>
+<Modal bind:this={modal}>
+	<slot />
 	<div slot="header" class="px-4 ">
 		<Text type=" title ">
 			{title}
@@ -32,6 +30,5 @@
 		class="flex flex-row space-x-2 justify-end px-2 py-2 "
 	>
 		<Button variant="text" name={cancel} on:click={close} />
-		<slot />
 	</div>
 </Modal>

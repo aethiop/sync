@@ -9,16 +9,15 @@
 	let value;
 </script>
 
-<div class="w-full flex py-4 px-2 flex-row items-center space-x-7 justify-end">
-	<Icon name="search" />
-	<UploadModal folder="private" />
+<div class="w-full flex py-4 px-2 flex-row items-center justify-between">
+	<Text type=" title ">Sync</Text>
+	<div class="flex flex-row items-center">
+		<Icon class="pr-2" name="search" />
+		<UploadModal folder="private" />
+	</div>
 </div>
 <div class="flex-1 h-full rounded-lg">
 	<div>
-		{#if $uploading > 0 && $uploading < 100}
-			<Text type=" px-2 body ">Uploading</Text>
-			<Progress progress={$uploading} />
-		{/if}
 		{#if $downloading > 0 && $downloading < 100}
 			<Text type=" px-2 body ">Downloading</Text>
 
