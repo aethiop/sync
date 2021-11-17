@@ -6,7 +6,6 @@ export let downloading = tweened(0);
 export let data = null;
 export let uploading = tweened(0);
 export async function sendFile(pub, folder, file) {
-	console.log(folder, file);
 	var file = user.get(folder).get(file);
 
 	var cert = await gun
@@ -18,13 +17,7 @@ export async function sendFile(pub, folder, file) {
 	gun.user(pub)
 		.get("shared")
 		.get(file._.get)
-		.put(
-			file._.link,
-			({ ok, err }) => {
-				console.log(ok, err);
-			},
-			{ opt: { cert: cert } }
-		);
+		.put(file._.link, ({ ok, err }) => {}, { opt: { cert: cert } });
 }
 export function uploadFile(folder, file) {
 	var slice_size = 1024 * 1024;
@@ -75,7 +68,6 @@ export async function getFile(folder, fileId) {
 
 export async function restoreFile(folder, fileId) {
 	let prevFolder = await user.get(folder).get(fileId).get("from");
-	console.log(prevFolder);
 	var trashed = user.get(folder).get(fileId);
 	// @ts-ignore
 	user.get(prevFolder).get(fileId).put(trashed);

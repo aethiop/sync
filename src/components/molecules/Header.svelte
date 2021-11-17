@@ -12,7 +12,6 @@
 	function handleLinkClick(e) {
 		e.preventDefault();
 		const href = "e.target.name";
-		console.log(href);
 		history.pushState(href, "", href);
 	}
 </script>

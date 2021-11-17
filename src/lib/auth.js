@@ -21,9 +21,7 @@ export const login = async (key) => {
 	key = typeof key === "string" ? JSON.parse(key) : key;
 
 	user.auth(key);
-	console.log(JSON.stringify(key));
 	if (user.is) {
-		console.log(user.is);
 		profile.set({
 			username: await user.get("profile").get("name"),
 			key: key,

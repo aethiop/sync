@@ -50,6 +50,7 @@
 			name={"Delete"}
 			on:click={() => {
 				deleteFile(folder, file);
+				modal.hide();
 				deleteCompleted();
 			}}
 		/>

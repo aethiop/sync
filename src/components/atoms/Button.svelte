@@ -5,7 +5,7 @@
 	export let left = "";
 	export let right = "";
 	export let full = false;
-	export let name;
+	export let name = "";
 </script>
 
 <!-- Button Atom -->
@@ -40,6 +40,3 @@
 		<Icon name={right} />
 	{/if}
 </button>
-
-<style>
-</style>

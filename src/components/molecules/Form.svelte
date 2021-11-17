@@ -1,4 +1,6 @@
 <script>
+	// @ts-nocheck
+
 	import TextInput from "$atoms/TextInput.svelte";
 	import Button from "$atoms/Button.svelte";
 

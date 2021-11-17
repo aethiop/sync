@@ -35,11 +35,10 @@
 </script>
 
 <File {name} type={dataType}>
-	<Icon
-		class="mx-2 cursor-pointer"
-		name="refresh"
+	<Button
+		left="refresh"
+		variant="text-secondary"
 		on:click={() => {
-			console.log(folder);
 			restoreFile(folder, name);
 			restoreCompleted();
 		}}
@@ -51,8 +50,8 @@
 		message={`${name} will be completely removed`}
 	>
 		<Button
-			variant="error"
-			name="Delete"
+			variant="text-error"
+			left="cancel"
 			on:click={() => {
 				completeRemove(folder, name);
 				removeCompleted();

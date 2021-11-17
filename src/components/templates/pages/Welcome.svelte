@@ -24,7 +24,7 @@
 	>
 		<div class="pb-10 flex flex-col items-center lg:hidden ">
 			<Logo class="w-40 h-40 pb-2" />
-			<Title class=""
+			<Title
 				>Sync your files<br /> on the
 				<span class="text-primary">galaxy</span></Title
 			>

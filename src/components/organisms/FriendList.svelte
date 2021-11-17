@@ -39,7 +39,7 @@
 	>
 		{#each friends as [key, data]}
 			<div
-				class="flex w-full flex-row items-center justify-between bg-primary/10 px-2 rounded-xl space-x-7"
+				class="flex w-full flex-row items-center justify-between bg-surface hover:bg-surface/75 px-2 rounded-2xl space-x-7"
 			>
 				<div class="flex flex-row space-x-4 items-center">
 					<Avatar name={data.name} />

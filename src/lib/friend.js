@@ -15,12 +15,8 @@ export async function generateRequestsCertificate() {
 		.put(certificate, ({ ok }) => {
 			console.log("Request Certificate created");
 		});
-	console.log(await user.get("cert").get("requests"));
 }
 export async function sendRequest(pub) {
-	console.log("FROM: ", user.is.pub);
-	console.log("Adding...");
-	console.log(await gun.user(pub).get("profile").get("name"));
 	const certificate = await gun.user(pub).get("cert").get("requests");
 	generateFriendCertificate(pub);
 
@@ -79,7 +75,6 @@ async function generateFriendCertificate(pub) {
 		.get(pub)
 		.put(certificate, ({ ok }) => {
 			console.log("Friend Certificate created for: ", pub);
-			console.log(certificate);
 		});
 }
 export function getFriends() {

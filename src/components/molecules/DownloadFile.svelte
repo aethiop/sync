@@ -20,8 +20,8 @@
 
 	const downloadStarted = () => {
 		addToast({
-			message: `File has been deleted! Its been moved to trash folder.`,
-			type: "error",
+			message: `Downloading Started ...`,
+			type: "info",
 			dismissible: true,
 			timeout: 700,
 		});
@@ -51,10 +51,8 @@
 		left="download"
 		variant="text"
 		on:click={() => {
-			// if ($current == "") {
 			download();
 			downloadStarted();
-			// }
 		}}
 	/>
 </File>

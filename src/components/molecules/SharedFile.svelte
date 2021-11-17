@@ -39,7 +39,6 @@
 		class="mx-2 cursor-pointer"
 		name="refresh"
 		on:click={() => {
-			console.log(folder);
 			restoreFile(folder, name);
 			restoreCompleted();
 		}}

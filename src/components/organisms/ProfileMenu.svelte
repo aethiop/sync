@@ -31,7 +31,6 @@
 			timeout: 300,
 		});
 	};
-	$: console.log($theme);
 </script>
 
 <div>

@@ -14,7 +14,6 @@
 	user.get(folder)
 		.map()
 		.on(async function (data, key) {
-			console.log(data, key);
 			if (data) {
 				store[key] = {
 					data: data,
@@ -45,7 +44,6 @@
 					on:click={() => {
 						// if ($current == "") {
 						gun.get(data).download(async (progress, file) => {
-							console.log(progress);
 							if (file) {
 								var link = document.createElement("a");
 								link.href = window.URL.createObjectURL(

@@ -26,10 +26,6 @@
 	];
 	let selected = options[0];
 
-	function uploadtoTorrent() {
-		console.log("Torrent");
-	}
-
 	function uploadtoGun() {
 		if (!($uploading > 0 && $uploading < 100)) {
 			uploadFile(folder, file);
