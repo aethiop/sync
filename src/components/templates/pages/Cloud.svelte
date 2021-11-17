@@ -4,6 +4,7 @@
 	import Icon from "$atoms/Icon.svelte";
 	import SearchInput from "$molecules/SearchInput.svelte";
 	import UploadModal from "$organisms/UploadModal.svelte";
+	import FriendModal from "$organisms/FriendModal.svelte";
 	import FileList from "$organisms/FileList.svelte";
 	import { uploading, downloading } from "$lib/cloud.js";
 	let value;
@@ -13,6 +14,7 @@
 	<Text type=" title ">Sync</Text>
 	<div class="flex flex-row items-center">
 		<Icon class="pr-2" name="search" />
+		<FriendModal />
 		<UploadModal folder="private" />
 	</div>
 </div>

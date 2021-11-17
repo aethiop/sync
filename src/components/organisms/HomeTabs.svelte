@@ -34,7 +34,7 @@
 				</li>
 			{/each}
 		</div>
-		<div class=" lg:w-full">
+		<div class="pb-1 lg:w-full">
 			<ProfileMenu />
 		</div>
 	</ul>

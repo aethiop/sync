@@ -3,6 +3,7 @@
 
 	import TextInput from "$atoms/TextInput.svelte";
 	import Public from "$organisms/Public.svelte";
+	import Shared from "$templates/pages/Shared.svelte";
 	import Friends from "$templates/pages/Friends.svelte";
 	import Trash from "$templates/pages/Trash.svelte";
 	import HomeTabs from "$organisms/HomeTabs.svelte";
@@ -26,15 +27,21 @@
 		},
 
 		{
+			name: "Shared",
+			icon: "share",
+			value: 3,
+			component: Shared,
+		},
+		{
 			name: "Friends",
 			icon: "friends",
-			value: 3,
+			value: 4,
 			component: Friends,
 		},
 		{
 			name: "Trash",
 			icon: "trash",
-			value: 4,
+			value: 5,
 			component: Trash,
 		},
 	];

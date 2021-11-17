@@ -40,13 +40,10 @@
 
 	/* Avatar */
 	.avatar {
-		@apply w-12 h-12 pt-1 flex  items-center bg-opacity-50 justify-center bg-primary rounded-2xl text-primary text-xl font-bold;
+		@apply w-12 h-12 flex my-2 items-center justify-center bg-primary/25 rounded-2xl text-primary text-xl font-bold;
 	}
 	.avatar-text {
 		@apply text-primary;
-	}
-	.avatar-status {
-		@apply relative bottom-2 ml-9 w-3 h-3 ring-4 ring-surface rounded-full bg-success;
 	}
 
 	/* Button */

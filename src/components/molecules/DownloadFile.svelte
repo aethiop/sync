@@ -7,6 +7,7 @@
 	import Button from "$atoms/Button.svelte";
 	import File from "$atoms/File.svelte";
 	import Trash from "$molecules/Trash.svelte";
+	import ShareModal from "$organisms/ShareModal.svelte";
 	import { getFile, deleteFile, uploading, downloading } from "$lib/cloud.js";
 	import { addToast, uploadQueue, downloadQueue } from "$lib/store.js";
 	import { user } from "$lib/db.js";
@@ -17,7 +18,7 @@
 	let data = null;
 	let dataType;
 
-	const deleteCompleted = () => {
+	const downloadStarted = () => {
 		addToast({
 			message: `File has been deleted! Its been moved to trash folder.`,
 			type: "error",
@@ -36,7 +37,7 @@
 
 <File {name} type={dataType}>
 	<div class="flex flex-row space-x-2" />
-	<Button left="share" variant="text-secondary" />
+	<ShareModal {folder} title={name} />
 
 	<Trash
 		{folder}
@@ -52,6 +53,7 @@
 		on:click={() => {
 			// if ($current == "") {
 			download();
+			downloadStarted();
 			// }
 		}}
 	/>

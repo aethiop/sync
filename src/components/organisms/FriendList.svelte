@@ -2,11 +2,15 @@
 	// @ts-nocheck
 	import Text from "$atoms/Text.svelte";
 	import Avatar from "$atoms/Avatar.svelte";
+	import Button from "$atoms/Button.svelte";
 	import DownloadFile from "$molecules/DownloadFile.svelte";
 	// import TrashFile from "$molecules/TrashFile.svelte";
 	import { onMount } from "svelte";
 	import { gun, user } from "$lib/db.js";
-
+	import { sendFile } from "$lib/cloud.js";
+	export let folder;
+	export let file;
+	export let share = false;
 	let store = {};
 	user.get("friends")
 		.map()
@@ -35,10 +39,22 @@
 	>
 		{#each friends as [key, data]}
 			<div
-				class="flex w-full flex-row items-center justify-start space-x-7"
+				class="flex w-full flex-row items-center justify-between bg-primary/10 px-2 rounded-xl space-x-7"
 			>
-				<Avatar name={data.name} />
-				<Text class="" type=" body ">{data.name}</Text>
+				<div class="flex flex-row space-x-4 items-center">
+					<Avatar name={data.name} />
+					<Text class="" type=" body ">{data.name}</Text>
+				</div>
+				{#if share}
+					<Button
+						left="send"
+						on:click={() => {
+							sendFile(data.pub, folder, file);
+							// modal.hide();
+						}}
+						variant="text"
+					/>
+				{/if}
 			</div>
 		{/each}
 	</div>

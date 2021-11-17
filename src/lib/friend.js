@@ -44,6 +44,8 @@ export async function sendRequest(pub) {
 	console.log("Friend Request Sent");
 }
 export function acceptRequest(pub, soul) {
+	generateFriendCertificate(pub);
+
 	gun.user(pub)
 		.get("certificates")
 		.get("friends")
@@ -67,7 +69,7 @@ async function generateFriendCertificate(pub) {
 
 	let certificate = await SEA.certify(
 		pub,
-		[{ "*": "friends" }],
+		[{ "*": "friends" }, { "*": "shared" }, { "*": "certificates" }],
 		keyPair,
 		null,
 		{}
