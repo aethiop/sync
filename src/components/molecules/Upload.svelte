@@ -21,8 +21,7 @@
 		files = {};
 	});
 	let options = [
-		{ name: "gun", func: uploadtoGun },
-		{ name: "torrent", fun: uploadtoTorrent },
+		{ name: "gun", func: uploadtoGun }
 	];
 	let selected = options[0];
 
